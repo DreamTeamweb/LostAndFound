@@ -1,0 +1,10 @@
+2 cas : "j'ai trouvé" "Je cherche"
+
+J'ai trouvé : 
+Titre
+Description 
+Image
+(facultatif: lieu, date, mots clés proposés)
+
+J'ai cherche : 
+annonces triées par mots clés
