@@ -1,0 +1,55 @@
+<div>
+    <h1>Formulaire : quel est votre objet ?</h1>
+</div>
+
+<fieldset>
+    <div>
+        <label><h3>Type d'objet </h3></label>
+        <div>
+            <input type="radio" name="typeObj" id="chaussure">
+            <label for="chaussure">Chaussure</label>
+        </div>
+        <div>
+            <input type="radio" name="typeObj" id="telephone">
+            <label for="telephone">Téléphone</label>
+        </div>
+        <div>
+            <input type="radio" name="typeObj" id="Sac a dos">
+            <label for="Sac a dos">Sac à dos</label>
+        </div>
+        <div>
+            <input type="radio" name="typeObj" id="Clefs">
+            <label for="Clefs">Clefs</label>
+        </div>
+        <div>
+            <input type="radio" name="typeObj" id="autreType" checked>
+            <label for="autreType">Autre</label>
+        </div>
+        
+    </div>
+    <div>
+        <h3>Mots clefs</h3>
+        <label for="motsClefs"></label>
+        <input type="text" name="keyWords" id="motsClefs" placeholder="marque, description..." required>
+    </div>
+    <br>
+    <div><input type="submit" value="Rechercher"></div>
+</fieldset>
+
+<h1>Liste des objets trouvés</h1>
+<p>Ici se fait le retour dynamique
+    <br> en fonction des champs rentrés par l'utilisateur
+    <br> Mais ça reste à implémenter
+</p>
+<p>
+    <hr> Mon objet 1
+    Description
+    image 
+<p>
+    Mon objet 2
+    Description
+    image <hr>
+<p>
+    Mon objet 3 (...)
+    Description
+    image <hr>
