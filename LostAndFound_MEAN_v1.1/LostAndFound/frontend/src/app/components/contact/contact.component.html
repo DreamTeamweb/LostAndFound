@@ -1,0 +1,73 @@
+<!--<link rel="contact.component" href="contact.component.css" />
+<h1>Nous contacter :</h1>
+<h3>Si tu souhaite nous contacter pour un support technique, des questions ou des suggestions, ce formulaire est fait
+    pour toi. </h3>
+
+<form id="contact" method="post" action="envoi.php">
+    <p><label for="nom">Nom : </label><input type="text" id="nom" name="nom" tabindex="1" /></p>
+    <p><label for="email">Email : </label><input type="text" id="email" name="email" tabindex="2" /></p>
+    <p><label for="object">Object : </label><input type="text" id="object" name="object" tabindex="3" /></p>
+    <p><label for="message">Message : </label></p>
+    <p><textarea id="message" name="message" tabindex="4" cols="200" rows=20></textarea></p>
+    <div style="text-align:center;"><input type="submit" name="envoi" value=" Envoyer " /></div>
+</form>-->
+<div class="container">
+    <h1>Nous contacter :</h1>
+    <h3>Si tu souhaite nous contacter pour un support technique, des questions ou des suggestions, ce formulaire est
+        fait
+        pour toi. </h3>
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <form id="contact-form" method="post" action="" role="form" novalidate="true">
+                <div class="messages"></div>
+                <div class="controls">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="form_name">Prénom *</label>
+                                <input id="form_name" type="text" name="name" class="form-control"
+                                    placeholder="Entrez votre prénom *" required="required"
+                                    data-error="Le prénom est requis.">
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="form_lastname">Nom *</label>
+                                <input id="form_lastname" type="text" name="surname" class="form-control"
+                                    placeholder="Entre votre nom *" required="required"
+                                    data-error="Le nom est requis.">
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="form_email">Mail *</label>
+                                <input id="form_email" type="email" name="email" class="form-control"
+                                    placeholder="Entrez votre mail INSA *" required="required"
+                                    data-error="Un mail valid est requis">
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="form_message">Message *</label>
+                                <textarea id="form_message" name="message" class="form-control"
+                                    placeholder="Message pur nous*" rows="4" required=""
+                                    data-error="S'il vous plaît laissez nous un message"></textarea>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="submit" class="btn btn-success btn-send disabled" value="Envoyer le message">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
