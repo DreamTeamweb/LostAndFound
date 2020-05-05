@@ -1,0 +1,97 @@
+<div class="row mt-3">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header">
+               <h2 > Décrivez l'objet que vous avez trouvé</h2>
+            </div>
+            <div class="card-body">
+                <form #objectForm="ngForm" (ngSubmit)="validationData(objectForm)">
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <legend class="col-form-label col-md-4 pt-0"><h5>Type d'objet</h5></legend>
+                          <div class="col-md-15">
+                            <div class="custom-control custom-radio">
+                              <input class="custom-control-input" type="radio" name="type" #type="ngModel" id="customRadio1" value="1" [(ngModel)]="objectService.selectedObject.type" (change)="onItemChange($event.target.value)">
+                              <label class="custom-control-label" for="customRadio1">
+                                Carte
+                              </label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="customRadio2" name="type" #type="ngModel" class="custom-control-input" value="2" [(ngModel)]="objectService.selectedObject.type" (change)="onItemChange($event.target.value)">
+                                <label class="custom-control-label" for="customRadio2">
+                                   Téléphone
+                                </label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="customRadio3" name="type" #type="ngModel" class="custom-control-input" value="3" [(ngModel)]="objectService.selectedObject.type" (change)="onItemChange($event.target.value)">
+                                <label class="custom-control-label" for="customRadio3">
+                                   Clefs
+                                </label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="customRadio4" name="type" #type="ngModel" class="custom-control-input " value="4" [(ngModel)]="objectService.selectedObject.type" (change)="onItemChange($event.target.value)">
+                                <label class="custom-control-label" for="customRadio4">
+                                   Sac à dos
+                                </label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="customRadio5" name="type" #type="ngModel" class="custom-control-input" value="5" [(ngModel)]="objectService.selectedObject.type" (change)="onItemChange($event.target.value)">
+                                <label class="custom-control-label" for="customRadio5">
+                                   Autres
+                                </label>
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+                    <div class="form-group">
+                        <h5>Localisation</h5>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="location" #location="ngModel" [(ngModel)] ="objectService.selectedObject.location" placeholder="Où vous l'avez trouvé?" >
+                    </div>
+                    <div class="form-group">
+                        <h5>Mots clés</h5>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="description" #description="ngModel" [(ngModel)] ="objectService.selectedObject.description" placeholder="couleur, marque, porte-clés, TCL ...">
+                    </div>
+                    <div class="form-group">
+                        <h5>Sélectionnez une image de l'objet</h5>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                          </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Publier
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--
+<h1>Liste des objets trouvés</h1>
+<p>Ici se fait le retour dynamique
+    <br> en fonction des champs rentrés par l'utilisateur
+    <br> Mais ça reste à implémenter
+</p>
+<p>
+    <hr> Mon objet 1
+    Description
+    image 
+<p>
+    Mon objet 2
+    Description
+    image <hr>
+<p>
+    Mon objet 3 (...)
+    Description
+    image <hr>
+-->

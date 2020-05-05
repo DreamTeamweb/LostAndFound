@@ -1,0 +1,106 @@
+<div class="pt-5 container">
+    <div *ngIf="objectService.objects?.length > 0; else elseBlock" class="row justify-content-center">
+        <div *ngFor="let objet of objectService.objects" class="mx-3 my-3 card" style="width: 18rem;">
+            <img class="card-img-top" src="https://www.amerikickkansas.com/wp-content/uploads/2017/04/default-image.jpg"
+                alt="Image de l'objet">
+            <div class="card-body pb-0" [ngSwitch]="objet.type">
+                <h5 class="card-title pb-0" *ngSwitchCase="1">Carte</h5>
+                <h5 class="card-title" *ngSwitchCase="2">Téléphone</h5>
+                <h5 class="card-title" *ngSwitchCase="3">Clefs</h5>
+                <h5 class="card-title" *ngSwitchCase="4">Sac à dos</h5>
+                <h5 class="card-title" *ngSwitchCase="5">Carte</h5>
+                <h5 class="card-title" *ngSwitchDefault>{{objet.type}}</h5>
+                <hr class="m-0" />
+                <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Trouvé: {{objet.location}}</li>
+                <li class="list-group-item">Mots clefs: {{objet.description}}</li>
+                <li class="list-group-item">Publié le:<em> {{objet.date | date:'medium' }}</em></li>
+            </ul>
+            <div class="card-body">
+                <!--<a href="#" class="card-link">Card link</a>-->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                    (click)="setIdUser(objet.user)">
+                    Contacter
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="modal-body">
+                                    <h5>Vous êtes sûr(e) qu'il s'agît bien de votre objet?</h5>
+                                    <p>Veuillez contacter la personne par un de ces cordonnées</p>
+                                    <p style="color: blue;">Souvenez-vous que ce service a été développé pour le profit de la communauté de l'INSA</p>
+                                    <p style="font-style: italic;">“L’honnêteté n’est pas un habit des dimanches, mais un vêtement de tous les jours.”</p>
+                                    <p class="text-right" style="font-weight: bold;">- Etienne Rey</p>
+                                    <!--<button type="button"
+                                        class="btn btn-md btn-warning" data-toggle="popover" title="userService.selectedUse.name"
+                                        data-content="" (click)="getUserData(objet.user)">voir
+                                        les cordonnées</button>-->
+                                    <button type="button" class="btn btn-warning" data-toggle="modal"
+                                        data-target="#exampleModal2" (click)='getUserData(user._id)'>
+                                        Voir les coordonnées
+                                    </button>
+                                    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div *ngIf="user;" class="modal-body">
+                                                    <div class="modal-body">
+                                                        <h5>Les coordonnées</h5>
+                                                        <p> Mail: <a href="https://login.insa-lyon.fr/zimbra/?" target="_blank" >
+                                                            {{user.email}}@insa-lyon.fr
+                                                            </a></p>
+                                                        <label>Numéro de téléphone: <b>{{user.number}}</b></label>
+                                                        <!--<button type="button"
+                                                            class="btn btn-md btn-warning" data-toggle="popover" title="userService.selectedUse.name"
+                                                            data-content="" (click)="getUserData(objet.user)">voir
+                                                            les cordonnées</button>-->
+
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Fermer</button>
+                                                    <!--<button type="button" class="btn btn-primary">Accepter</button>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                <!--<button type="button" class="btn btn-primary">Accepter</button>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #elseBlock>
+        <div class="card mx-auto">
+            <div class="card-body">
+                <h1>Il n'y a pas encore d'objets.</h1>
+            </div>
+        </div>
+    </ng-template>
+</div>

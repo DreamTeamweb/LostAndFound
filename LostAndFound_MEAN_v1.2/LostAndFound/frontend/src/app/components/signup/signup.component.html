@@ -1,0 +1,122 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<style>
+    .input-group>.intl-tel-input.allow-dropdown {
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        width: 1%;
+    }
+
+    .input-group>.intl-tel-input.allow-dropdown>.flag-container {
+        z-index: 4;
+    }
+
+    .iti-flag {
+        background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.6/img/flags.png");
+    }
+
+    @media only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (min--moz-device-pixel-ratio: 2),
+    only screen and (-o-min-device-pixel-ratio: 2 / 1),
+    only screen and (min-device-pixel-ratio: 2),
+    only screen and (min-resolution: 192dpi),
+    only screen and (min-resolution: 2dppx) {
+        .iti-flag {
+            background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.6/img/flags@2x.png");
+        }
+    }
+</style>
+<script>
+    $("input").intlTelInput({
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js"
+    });
+</script>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 mt-5 mx-auto">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>Inscrivez-vous</h2>
+                </div>
+                <div class="card-body">
+                    <form #userForm="ngForm" (ngSubmit)="addUser(userForm)">
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <label for="inputName">Prénom</label>
+                                <input type="text" class="form-control" id="inputName" name="name" #name="ngModel"
+                                    [(ngModel)]="userService.selectedUser.name" placeholder="Prénom">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="inputLasName">Nom</label>
+                                <input type="text" class="form-control" id="inputLastName" name="lastname"
+                                    #lastname="ngModel" [(ngModel)]="userService.selectedUser.lastname"
+                                    placeholder="Nom">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-10">
+                                <label for="inputEmail">Mail de l'INSA</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="example.lost-found"
+                                        id="inputEmail" name="email" #email="ngModel"
+                                        [(ngModel)]="userService.selectedUser.email" aria-label="Recipient's username"
+                                        aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">@insa-lyon.fr</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-2">
+                                <div class="container align-middle">
+                                    <span class="d-inline-block" data-container="body" data-title="Annonce"
+                                        data-toggle="popover" data-placement="right"
+                                        data-content="On utilise votre addresse de l'INSA afin de limiter le service au personnel de l'INSA et de préserver la sécurité">
+                                        <button class="btn btn-warning" role="button" disabled>
+                                            <span class="material-icons align-middle">error_outline</span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="inputTelephone">Numéro de téléphone</label>
+                                <div class="input-group input-group-sm">
+                                    <input id="phone" type="tel" class="form-control form-control-sm rounded-0 w-100"
+                                        name="number" #number="ngModel" [(ngModel)]="userService.selectedUser.number">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text rounded-0 fa fa-phone"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <label for="inputPassword">Mot de passe</label>
+                                <input type="password" class="form-control" name="password" #password="ngModel"
+                                    [(ngModel)]="userService.selectedUser.password" placeholder="Mot de passe">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="inputConfirmPassword">Confirmez le mot de passe</label>
+                                <input type="password" class="form-control" name="confirm_password"
+                                    #confirm_password="ngModel" [(ngModel)]="userService.confirm_password"
+                                    placeholder="Confirmez le mot de passe">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Créer compte
+                            </button>
+                        </div>
+                        <div class="form-group text-center">
+                            <p>Vous avez déjà un compte?
+                                <a [routerLink]="['/signin']">Connectez-vous</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
