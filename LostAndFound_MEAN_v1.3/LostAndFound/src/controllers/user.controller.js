@@ -30,7 +30,11 @@ userCtrl.createUser = async (req, res) => {
     }
 
     if (email.length <= 0) {
-        errors.push({ text: "Inserez votre mail de l'INSA" });
+        errors.push({ text: "Inserez le début de votre mail de l'INSA" });
+    }
+
+    if(email.includes("@")){
+        errors.push({text: 'Ne mettez pas l\'extension de l\'adresse mail' });
     }
 
 
@@ -38,7 +42,7 @@ userCtrl.createUser = async (req, res) => {
         errors.push({ text: 'Inserez un mot de passe' });
     } else {
         if (password.length < 4) {
-            errors.push({ text: "Le mot de passe doit être compossé d'au moins 4 lettres" });
+            errors.push({ text: "Le mot de passe doit être composé d'au moins 4 lettres" });
         }
     }
     if (confirmPassword.length <= 0) {
