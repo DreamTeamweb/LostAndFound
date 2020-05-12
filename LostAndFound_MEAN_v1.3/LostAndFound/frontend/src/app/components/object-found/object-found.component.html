@@ -1,0 +1,128 @@
+<div class="row mt-3">
+    
+    <div class="col-md-5 mx-auto">
+
+        <div class="alert alert-danger alert-dismissible fade show" *ngFor="let error of errors" role="alert">
+            <strong>Ooops!</strong> {{error}}.
+          </div>
+        <div class="card">
+            <div class="card-header">
+                <h5> Décrivez l'objet que vous avez trouvé</h5>
+            </div>
+            <div class="card-body">
+                <form class="needs-validation" (submit)="validationData(description)" novalidate>
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <legend class="col-form-label col-md-4 pt-0">
+                                <h6>Type d'objet</h6>
+                            </legend>
+                            <div class="col-md-4">
+                                <div class="custom-control custom-radio">
+                                    <input class="custom-control-input" type="radio" id="customRadio1" value="1"
+                                        (change)="onItemChange($event.target.value)">
+                                    <label class="custom-control-label" for="customRadio1">
+                                        Carte
+                                    </label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio2" class="custom-control-input" value="2"
+                                        name="type" (change)="onItemChange($event.target.value)">
+                                    <label class="custom-control-label" for="customRadio2">
+                                        Téléphone
+                                    </label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio3" class="custom-control-input" value="3"
+                                        name="type" (change)="onItemChange($event.target.value)">
+                                    <label class="custom-control-label" for="customRadio3">
+                                        Clefs
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio4" class="custom-control-input " value="4"
+                                        name="type" (change)="onItemChange($event.target.value)">
+                                    <label class="custom-control-label" for="customRadio4">
+                                        Sac à dos
+                                    </label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio5" class="custom-control-input" value="5"
+                                        name="type" (change)="onItemChange($event.target.value)" #type>
+                                    <label class="custom-control-label" for="customRadio5">
+                                        Autres
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-group">
+                        <h6>Localisation</h6>
+                    </div>
+                    <div class="form-group">
+                        <div class="mapPanel" id="mapPanel">
+                        <agm-map [latitude]="latitude" [longitude]="longitude" [minZoom]="minZoom"
+                            [fullscreenControl]=true [zoom]="zoom" (mapClick)="onChoseLocation($event)" >
+                            <agm-marker [latitude]="latitudeMarker" [longitude]="longitudeMarker"
+                                *ngIf="locationChosen">
+                            </agm-marker>
+                        </agm-map>
+                    </div>
+                        <!-- <input type="text" class="form-control" name="location" #location="ngModel" [(ngModel)] ="objectService.selectedObject.location" placeholder="Où vous l'avez trouvé?" > -->
+
+                    </div>
+                    <div class="form-group">
+                        <h6>Description</h6>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="inputDescription" class="form-control" placeholder="couleur, marque, porte-clés, TCL ..."
+                            required #description>
+                        <div class="invalid-feedback" id="message">
+                            Insérez une description.
+                        </div>
+                    </div>
+                    <div class="form-group h-25">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h6>Image de l'objet</h6>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="file" class="d-none" accept=".jpg,.png,.jpeg"
+                                    (change)="onPhotoSelected($event)" name="photo" #photoInput required>
+                                <img [src]="photoSelected || 'assets/img/no_photo.jpg'" class="img-fluid img-thumbnail" id="inputPhoto"
+                                    alt="" (click)="photoInput.click()">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Publier
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--
+<h1>Liste des objets trouvés</h1>
+<p>Ici se fait le retour dynamique
+    <br> en fonction des champs rentrés par l'utilisateur
+    <br> Mais ça reste à implémenter
+</p>
+<p>
+    <hr> Mon objet 1
+    Description
+    image 
+<p>
+    Mon objet 2
+    Description
+    image <hr>
+<p>
+    Mon objet 3 (...)
+    Description
+    image <hr>
+-->

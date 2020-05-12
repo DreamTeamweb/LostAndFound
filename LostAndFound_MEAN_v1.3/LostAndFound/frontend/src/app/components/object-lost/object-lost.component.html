@@ -1,0 +1,152 @@
+<div class="container">
+    <div *ngIf="objectService.objects?.length > 0; else elseBlock" class="row justify-content-center">
+        <div *ngFor="let objet of objectService.objects" class="card mx-3 my-3 photo">
+            <div class="card-photo" (click)="previewImage(objet.imagePath)" data-toggle="modal" data-target="#exampleModal">
+                
+                <img src="http://localhost:3000/{{objet.imagePath}}"  class="preview"
+                      alt="Image de l'objet">
+            
+            </div>
+            <div class="card-body pb-0" [ngSwitch]="objet.type">
+                <h6 class="card-title" *ngSwitchCase="1">Carte</h6>
+                <h6 class="card-title" *ngSwitchCase="2">Téléphone</h6>
+                <h6 class="card-title" *ngSwitchCase="3">Clefs</h6>
+                <h6 class="card-title" *ngSwitchCase="4">Sac à dos</h6>
+                <h6 class="card-title" *ngSwitchCase="5">Autre</h6>
+                <h6 class="card-title" *ngSwitchDefault>{{objet.type}}</h6>
+
+                <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+            </div>
+            <hr class="m-0 p-0" />
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Mots clefs: {{objet.description}}</li>
+                <li class="list-group-item">Publié le:
+                    <em>{{objet.date | date:'d MMM, y à H' }}h{{objet.date | date:'mm' }}</em></li>
+            </ul>
+            <div class="card-body">
+                <div class="form-group d-flex justify-content-between my-0">
+                    <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModal"
+                        (click)="selectModal(objet.latitude,objet.longitude)">
+                        Localisation
+                    </button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                        (click)="setIdUser(objet.user)">
+                        Contacter
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document" [ngSwitch]="showModalContent">
+                <div class="modal-content" *ngSwitchCase="1">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-body">
+                            <h5>Vous êtes sûr(e) qu'il s'agît bien de votre objet?</h5>
+                            <p>Veuillez contacter la personne par un de ces cordonnées</p>
+                            <p style="color: blue;">Souvenez-vous que ce service a été développé pour le profit
+                                de la communauté de l'INSA</p>
+                            <p style="font-style: italic;">“L’honnêteté n’est pas un habit des dimanches, mais
+                                un vêtement de tous les jours.”</p>
+                            <p class="text-right" style="font-weight: bold;">- Etienne Rey</p>
+                            <!--<button type="button"
+                                        class="btn btn-md btn-warning" data-toggle="popover" title="userService.selectedUse.name"
+                                        data-content="" (click)="getUserData(objet.user)">voir
+                                        les cordonnées</button>-->
+                            <button type="button" class="btn btn-warning" data-toggle="modal"
+                                data-target="#exampleModal2" (click)='getUserData(user._id)'>
+                                Voir les coordonnées
+                            </button>
+                            <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div *ngIf="user;" class="modal-body">
+                                            <div class="modal-body">
+                                                <h5>Les coordonnées</h5>
+                                                <p> Mail: <a href="https://login.insa-lyon.fr/zimbra/?" target="_blank">
+                                                        {{user.email}}@insa-lyon.fr
+                                                    </a></p>
+                                                <label *ngIf="user.number">Numéro de téléphone:
+                                                    <b>{{user.number}}</b></label>
+                                                <!--<button type="button"
+                                                            class="btn btn-md btn-warning" data-toggle="popover" title="userService.selectedUse.name"
+                                                            data-content="" (click)="getUserData(objet.user)">voir
+                                                            les cordonnées</button>-->
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Fermer</button>
+                                            <!--<button type="button" class="btn btn-primary">Accepter</button>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <!--<button type="button" class="btn btn-primary">Accepter</button>-->
+                    </div>
+                </div>
+
+                <!-- Map Modal -->
+                <div class="modal-content" *ngSwitchCase="2">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">L'objet a été trouvé ici</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                            <agm-marker [latitude]="latitude" [longitude]="longitude">
+                            </agm-marker>
+                        </agm-map>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+
+                <!-- Photo Modal -->
+                <div class="modal-content" *ngSwitchCase="3">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Photo de l'objet</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body full">
+                        <img src="http://localhost:3000/{{path}}" class="img-fluid img-thumbnail total" alt="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <ng-template #elseBlock>
+        <div class="card mx-auto">
+            <div class="card-body">
+                <h1>Il n'y a pas encore d'objets.</h1>
+            </div>
+        </div>
+    </ng-template>
+</div>

@@ -1,0 +1,371 @@
+<script>
+    $('.collapse').collapse()
+</script>
+<div class="main-content">
+    <!-- Top navbar -->
+    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+        <div *ngIf="hour > 18 || hour < 6; else elseBlockTime" class="container-fluid">
+            <!-- Brand -->
+            <p class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">Bonsoir {{user.name}}! 🌛</p>
+            <!-- Form -->
+            <!-- User -->
+        </div>
+        <ng-template #elseBlockTime>
+            <div class="container-fluid">
+                <p class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">Bonjour {{user.name}}! 🌞</p>
+            </div>
+        </ng-template>
+    </nav>
+    <!-- Header -->
+
+    <!-- Page content -->
+    <div class="container-fluid mt--7">
+        <div class="row">
+            <div class="col-xl-8 order-xl-2">
+                <div class="card bg-secondary shadow">
+                    <div class="card-header bg-white border-0">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <div class="row justify-content-between">
+                                    <h3 class="mb-0">Mes objets publiés</h3>
+                                    <button type="button" class="btn btn-primary">
+                                        Total: <span class="badge badge-light">{{objects.length}}</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- <div class="col-4 text-right">
+                                    <a href="#!" class="btn btn-sm btn-primary">Settings</a>
+                                </div> -->
+                        </div>
+                    </div>
+
+                    <div *ngIf="objects?.length > 0; else elseBlock" id="accordion">
+                        <div *ngFor="let objet of objects" class="card">
+                            <div class="card-header row justify-content-between" [id]="objet._id"
+                                [ngSwitch]="objet.type">
+                                <h5 class="mb-0">
+                                    <!-- <label>{{objet._id}}</label> -->
+                                    <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+
+                                    <button class="btn btn-link" *ngSwitchCase="1" data-toggle="collapse"
+                                        [attr.data-target]="'#collapse'+objet._id" aria-expanded="true"
+                                        [attr.aria-controls]="'collapse'+objet._id">
+                                        Carte
+                                    </button>
+                                    <button class="btn btn-link" *ngSwitchCase="2" data-toggle="collapse"
+                                        [attr.data-target]="'#collapse'+objet._id" aria-expanded="false"
+                                        [attr.aria-controls]="'collapse'+objet._id">
+                                        Téléphone
+                                    </button> <button class="btn btn-link" *ngSwitchCase="3" data-toggle="collapse"
+                                        [attr.data-target]="'#collapse'+objet._id" aria-expanded="false"
+                                        [attr.aria-controls]="'collapse'+objet._id">
+                                        Clefs
+                                    </button> <button class="btn btn-link" *ngSwitchCase="4" data-toggle="collapse"
+                                        [attr.data-target]="'#collapse'+objet._id" aria-expanded="false"
+                                        [attr.aria-controls]="'collapse'+objet._id">
+                                        Sac à dos
+                                    </button> <button class="btn btn-link" *ngSwitchCase="5" data-toggle="collapse"
+                                        [attr.data-target]="'#collapse'+objet._id" aria-expanded="false"
+                                        [attr.aria-controls]="'collapse'+objet._id">
+                                        Autres
+                                    </button>
+                                    <button class="btn btn-link" *ngSwitchDefault data-toggle="collapse"
+                                        [attr.data-target]="'#collapse'+objet._id" aria-expanded="false"
+                                        [attr.aria-controls]="'collapse'+objet._id">
+                                        {{objet.type}}
+                                    </button>
+                                </h5>
+                                <div class="btn-group btn-group-md text-right" role="group">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#exampleModalCenter" (click)="getObject(objet._id)">Modifier <span
+                                            class="material-icons align-middle">
+                                            settings
+                                        </span></button>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal"
+                                        data-target="#confirmationModal"
+                                        (click)="confirmationAction(objet._id,2)">Supprimmer <span
+                                            class="material-icons align-middle">
+                                            delete
+                                        </span></button>
+                                </div>
+                            </div>
+                            <div [id]="'collapse'+objet._id" class="collapse" [attr.aria-labelledby]="objet._id"
+                                data-parent="#accordion">
+                                <div class="card">
+                                    <div class="row ">
+                                        <div class="col-sm-6 photo pr-0" id="photoPanel">
+                                            <img src="http://localhost:3000/{{objet.imagePath}}" 
+                                                class="img-fluid preview">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="card-block">
+                                                <h4 class="card-title pt-2">Données de l'objet</h4>
+                                                <div class="card-body">
+                                                    <!-- <p><b>Localisation:</b>{{objet.latitude}} ,{{objet.longitude}}</p> -->
+                                                    <p><b>Description:</b> {{objet.description}}</p>
+                                                    <p><b>Trouvé le: </b>{{objet.date | date : 'mediumDate'}}</p>
+                                                    <button type="button" class="btn btn-outline-dark"
+                                                        data-toggle="modal" data-target="#exampleModalCenter"
+                                                        (click)="setLocationModal(objet.latitude,objet.longitude)">
+                                                        Localisation
+                                                    </button>
+
+                                                </div>
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content" *ngIf="!showModalMap; else showMap">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Modifier les données</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            (click)="dismissModal()" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form #objectForm="ngForm">
+                                            <input type="hidden" name="_id" #_id="ngModel"
+                                                [(ngModel)]="objectService.selectedObject._id">
+                                            <fieldset class="form-group">
+                                                <div class="row">
+                                                    <legend class="col-form-label col-md-4 pt-0">
+                                                        <h6>Type d'objet</h6>
+                                                    </legend>
+                                                    <div class="col-md-4">
+                                                        <div class="custom-control custom-radio">
+                                                            <input class="custom-control-input" type="radio" name="type"
+                                                                #type="ngModel" id="customRadio1" value="1"
+                                                                [(ngModel)]="objectService.selectedObject.type"
+                                                                (change)="onItemChange($event.target.value)">
+                                                            <label class="custom-control-label" for="customRadio1">
+                                                                Carte
+                                                            </label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio">
+                                                            <input type="radio" id="customRadio2" name="type"
+                                                                #type="ngModel" class="custom-control-input" value="2"
+                                                                [(ngModel)]="objectService.selectedObject.type"
+                                                                (change)="onItemChange($event.target.value)">
+                                                            <label class="custom-control-label" for="customRadio2">
+                                                                Téléphone
+                                                            </label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio">
+                                                            <input type="radio" id="customRadio3" name="type"
+                                                                #type="ngModel" class="custom-control-input" value="3"
+                                                                [(ngModel)]="objectService.selectedObject.type"
+                                                                (change)="onItemChange($event.target.value)">
+                                                            <label class="custom-control-label" for="customRadio3">
+                                                                Clefs
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="custom-control custom-radio">
+                                                            <input type="radio" id="customRadio4" name="type"
+                                                                #type="ngModel" class="custom-control-input " value="4"
+                                                                [(ngModel)]="objectService.selectedObject.type"
+                                                                (change)="onItemChange($event.target.value)">
+                                                            <label class="custom-control-label" for="customRadio4">
+                                                                Sac à dos
+                                                            </label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio">
+                                                            <input type="radio" id="customRadio5" name="type"
+                                                                #type="ngModel" class="custom-control-input" value="5"
+                                                                [(ngModel)]="objectService.selectedObject.type"
+                                                                (change)="onItemChange($event.target.value)">
+                                                            <label class="custom-control-label" for="customRadio5">
+                                                                Autres
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <div class="form-group">
+                                                <h6>Localisation:</h6>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="hidden" id="longitude" name="longitude"
+                                                    [(ngModel)]="objectService.selectedObject.longitude">
+                                                <input type="hidden" id="latitude" name="latitude"
+                                                    [(ngModel)]="objectService.selectedObject.latitude">
+                                                <agm-map [latitude]="objectService.selectedObject.latitude"
+                                                    [longitude]="objectService.selectedObject.longitude" [zoom]="zoom"
+                                                    (mapClick)="onChoseLocation($event)">
+                                                    <agm-marker [latitude]="objectService.selectedObject.latitude"
+                                                        [longitude]="objectService.selectedObject.longitude">
+                                                    </agm-marker>
+                                                </agm-map>
+                                                <!-- <input type="text" class="form-control" name="location" #location="ngModel" [(ngModel)] ="objectService.selectedObject.location" placeholder="Où vous l'avez trouvé?" > -->
+
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Description</h6>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="description"
+                                                    #description="ngModel"
+                                                    [(ngModel)]="objectService.selectedObject.description"
+                                                    placeholder="couleur, marque, porte-clés, TCL ...">
+                                            </div>
+                                            <div class="form-group">
+                                                <h6>Image de l'objet</h6>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="customFile" (change)="onPhotoSelected($event)">
+                                                    <label class="custom-file-label" for="customFile">Sélectionner                                                       file</label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" id="modifyCancel"
+                                            data-dismiss="modal" (click)="dismissModal()">Annuler</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#confirmationModal" (click)="validation(objectForm)">
+                                            Enregistrer
+                                        </button>
+                                    </div>
+                                </div>
+                                <ng-template #showMap>
+                                    <!--Map Modal -->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">L'objet a été trouvé ici</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <agm-map class="modal-map" [latitude]="latitude" [longitude]="longitude"
+                                                [zoom]="zoom">
+                                                <agm-marker [latitude]="latitude" [longitude]="longitude">
+                                                </agm-marker>
+                                            </agm-map>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary"
+                                                data-dismiss="modal">Ok</button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+                        <!--Modal Confirmation-->
+
+                        <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog"
+                            aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Vous êtes sûr que vous voulez {{action}} cet objet?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" id="confirmationCancel" class="btn btn-secondary"
+                                            data-dismiss="modal">Non</button>
+                                        <button type="button" class="btn btn-primary"
+                                            (click)="executerAction()">Oui</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-template #elseBlock>
+                        <div class="card col-sm-12">
+                            <div class="card-body text-center">
+                                <h1>Il n'y a pas encore d'objets.</h1>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="col-xl-4 order-xl-1 mb-5 mb-xl-0">
+                <div class="card card-profile shadow">
+                    <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+                        <div class="d-flex justify-content-between">
+                            <img src="https://media-exp1.licdn.com/dms/image/C4E0BAQHLGq7JwbAC4Q/company-logo_200_200/0?e=2159024400&v=beta&t=HpUCL3W2voKJXj5Qr2lpKjxH99lcLBRZ6NhK9P3WD2g"
+                                class="rounded mx-auto d-block">
+                        </div>
+                    </div>
+                    <div class="card-body pt-0 pt-md-3">
+                        <div class="text-center">
+                            <h3>
+                                {{user.name}} {{user.lastname}} <button id="editNumberBtn" title="Modifier coordonnées"
+                                    class="btn btn-sm btn-outline-secondary" (click)="showEditNumber()"><span
+                                        class="material-icons align-middle">
+                                        settings
+                                    </span></button>
+                            </h3>
+                            <hr>
+                            <div class="h5 font-weight-300">
+                                <i class="ni location_pin mr-2"></i>{{user.email}}@insa-lyon.fr
+                            </div>
+                            <!-- <div class="h5 mt-4">
+                                <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
+                            </div> -->
+                            <div>
+                                <div class="form-group">
+                                    <p *ngIf="!editNumberForm && user.number; else elseNumber">
+                                        <i><b>+{{user.number}}</b></i></p>
+                                    
+                                    <ng-template #elseNumber>
+                                        <p *ngIf="!editNumberForm">Numéro de téléphone pas défini</p>
+                                    </ng-template>
+
+                                </div>
+                                <div *ngIf="editNumberForm" id="editNumber" class="container col-md-9">
+                                    <form #editNumberF="ngForm">
+                                        <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="user._id">
+                                        <div class="form-group">
+                                            <label>Numéro de téléphone:</label>
+                                            <input type="text" class="form-control text-center" name="number"
+                                                id="number" #number="ngModel" [(ngModel)]="user.number"
+                                                [value]="user.number" placeholder="+333333333">
+                                        </div>
+                                        <div class="form-group pt-2">
+                                            <button class="btn btn-secondary mr-3"
+                                                (click)="showEditNumber()">Annuler</button>
+                                            <button class="btn btn-primary"
+                                                (click)="updateUser(editNumberF)">Modifier</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <hr class="my-4">
+                            <p>Inscrit le {{user.date| date:'mediumDate'}}</p>
+                            <!--<a href="#">Show more</a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--
+    <footer class="footer">
+        <div class="row align-items-center justify-content-xl-between">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="copyright">
+                    <p>Made with <a href="https://www.creative-tim.com/product/argon-dashboard" target="_blank">Argon
+                            Dashboard</a> by Creative Tim</p>
+                </div>
+            </div>
+        </div>
+    </footer> -->

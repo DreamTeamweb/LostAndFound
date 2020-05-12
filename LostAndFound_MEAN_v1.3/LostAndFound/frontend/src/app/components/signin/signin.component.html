@@ -1,0 +1,61 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<div class="show-hide-message" *ngIf="!response.success || !valid">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" >
+        <strong>Ooops!</strong> {{response.message}}.
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-5 mx-auto">
+        <div class="card mt-4 text-center">
+            <div class="card-header">
+                <h2>Connectez-vous</h2>
+            </div>
+            <img src="https://lh3.googleusercontent.com/K6Q6PqqO8sYQGVFAPNwh9gqSA7WoiWxDGKGBijYN6oYtnHmRxXQKXSo2AtmS5iciHutrTxDTg0XucgT-Tm9lm_QhXVC9u6Q0C5qNs-wfPBag3sOAGi76ouPBs8olErVZLX62jfJK2VzQA6edR1KPW1izxM_6WWhmDI9VIge7JLMfZoQNu3MIK5x7yHfibX86ksRl5yW2NlbC5x3-HYuzKQJOwsVZBqVKT2PXEThsIfYGrwNNP2EkCKemXiqHYx1TCoY_e_llnZ_AqK6sxjnTwL0JLHM9bPiWfgnGdFVSTIGQ7F5e3OnKV5vxCoWczT9VMYaRBy21Y8c7Ve9lJfNz_KR0LZfH9EWnGIDKHn8vxCxC8D7y3UZ547KDXKIjitKpePjLUwcswERu4pispZO_sJNQnQwUl1cprGHJ502Ok9NjIZce_cpEPOHt-EVOH-vlo1GLSVXjErC4GgUhikr_-RW-2VQJLzE6Wz7IHKrKJD2-N31SrlXvikVZum05MceLYdrcT8GgW8CF464LExU-ss7fGmPp1r7wub6Do06SrQmf17LhUeafvHby0-VPQMZIaR9oodDh83aXSR3fselFmmCcyc5RJ9-Tqf4C7wNLBy_rfsZSBgvlf6TtxIgPyK_5GmZhGw0b1a-D9QsAap-5ta19-mCfazmX9Ie_R338fj_TlaprTRvf-yXTMOvJ_W7SNp0_8w=w1920-h902-ft"
+                class="rounded mx-auto d-block w-25 pt-2" alt="LostAndFound">
+            <hr>
+            <div class="card-body">
+                <form #loginForm="ngForm" (ngSubmit)="loginValidation(loginForm)">
+                    <div class="form-row">
+                        <div class="form-group col-sm-10  text-left">
+                            <label for="inputEmail">Mail de l'INSA</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="example.lost-found" id="inputEmail"
+                                    name="email" #email="ngModel" [(ngModel)]="userService.email"
+                                    aria-label="Recipient's username" aria-describedby="basic-addon2" autofocus required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">@insa-lyon.fr</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <div class="container align-middle">
+                                <span class="d-inline-block" data-container="body" data-title="Annonce"
+                                    data-toggle="popover" data-placement="right"
+                                    data-content="On utilise votre addresse de l'INSA afin de limiter le service au personnel de l'INSA et de préserver la sécurité">
+                                    <button class="btn btn-primary" role="button" disabled  required>
+                                        <span class="material-icons align-middle">error_outline</span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group text-left">
+                        <label for="inputPassword">Mot de passe</label>
+                        <input type="password" name="password" #password="ngModel" [(ngModel)]="userService.password"
+                            id="inputPassword" class="form-control" placeholder="Mot de passe">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Connexion
+                        </button>
+                    </div>
+                    <div class="form-group text-center">
+                        <p>Vous n'avez pas un compte?
+                            <a [routerLink]="['/signup']">Inscrivez-vous</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
