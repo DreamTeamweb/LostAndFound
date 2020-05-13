@@ -1,0 +1,9 @@
+sudo service mongod start
+mongod
+
+
+npm run dev
+
+cd frontend
+(npm install --save-dev @angular-devkit/build-angular)
+ng serve -o

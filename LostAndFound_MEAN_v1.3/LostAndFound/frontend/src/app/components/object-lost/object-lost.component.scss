@@ -37,6 +37,24 @@ agm-map{
     max-height: 150px;
     min-height: 150px;
     max-width: 250px;
-
-
 }
+
+.container{
+    margin-top: 100px;
+}
+
+.bg{
+    background: linear-gradient(#1CB5E0 0%, #000851 100%);
+    background-size: cover;
+}
+
+.button {
+    background-color: #4CAF50; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }

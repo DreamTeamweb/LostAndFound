@@ -52,18 +52,6 @@ h1 {
     color : red
 }*/
 body{
-    background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
-}
-
-footer {
-    height:50px;
-    line-height:50px;
-    text-align:center;
-    position:relative;
-    bottom:0;
-    left:0;
-    width:100%;
-    background-color:#1c2331;
-    color: white;
-
+    background: linear-gradient(rgb(201, 233, 241) 0%, #000851 100%);
+    background-attachment: fixed;
 }
