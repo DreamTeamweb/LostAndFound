@@ -1,0 +1,36 @@
+agm-map{
+    height:400px;
+}
+
+.card{
+ max-width: 250px;   
+}
+
+.card-photo{
+    cursor: pointer;
+    display: flex;
+    background-color:rgb(112, 128, 144);
+    justify-content: center; 
+}
+
+.card-photo:hover{
+    -webkit-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+    box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+}
+
+//mettre en relation avec la 
+.total{
+    max-height: 400px;
+}
+
+.full{
+    justify-content: center;
+    display: flex;
+}
+
+.preview {
+    max-height: 150px;
+    min-height: 150px;
+    max-width: 250px;
+}
