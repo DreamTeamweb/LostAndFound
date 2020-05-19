@@ -11,7 +11,6 @@ const jwt = require('jsonwebtoken')
     failureRedirect:'/users/signin',//Bad identifiers
     failureFlash: true
 }));//Executes the whole function writen in passport.js
-
 router.get('/users/signup', (req,res)=>{
     res.render('users/signup')
 });*/
@@ -21,31 +20,38 @@ userCtrl.createUser = async (req, res) => {
     const { name, lastname, email, number, password, confirmPassword } = req.body;
     const errors = [];
     console.log('Ya quedo ' + confirmPassword);
-    if (name.length <= 0) {
+    if (!name){
+        errors.push({text: "Le champ nom est vide, complétez-le!"});
+    } else if(name.length <= 0) {
         errors.push({ text: 'Inserez votre prénom' });
     }
 
-    if (lastname.length <= 0) {
+    if(!lastname){
+        errors.push({text: "le champ nom est vide, complétez-le!"});
+    } else if(lastname.length <= 0) {
         errors.push({ text: 'Inserez votre nom' });
     }
 
-    if (email.length <= 0) {
-        errors.push({ text: "Inserez votre mail de l'INSA" });
+    if(!email){
+        errors.push({text:"le champ email est vide, complétez-le!"});
+    } else if(email.length <= 0) {
+        errors.push({ text: "Inserez le début de votre mail de l'INSA" });
+    }else if(email.includes("@")){
+        errors.push({text: 'Ne mettez pas l\'extension de l\'adresse mail' });
     }
 
-
-    if (password.length <= 0) {
+    if(!password){
+        errors.push({text: "Le champ mot de passe est resté vide, complétez-le!"});
+    } else if(password.length <= 0) {
         errors.push({ text: 'Inserez un mot de passe' });
-    } else {
-        if (password.length < 4) {
-            errors.push({ text: "Le mot de passe doit être compossé d'au moins 4 lettres" });
-        }
+    } else if (password.length < 4) {
+        errors.push({ text: "Le mot de passe doit être composé d'au moins 4 lettres" });
     }
-    if (confirmPassword.length <= 0) {
+    if(!confirmPassword){
+        errors.push({text: "Vous devez confirmer votre mot de passe!"});
+    } else if(confirmPassword.length <= 0) {
         errors.push({ text: 'Confirmez votre mot de passe' });
-    }
-
-    if (password != confirmPassword) {
+    }else if (password != confirmPassword) {
         errors.push({ text: 'Les mots de passe ne correspondent pas' });
     }
 

@@ -10,12 +10,31 @@ objectCtrl.addObject = (req,res)=>{//The seconds parameter verifies if the user 
 objectCtrl.createObject = async(req,res)=>{
     console.log(req.body);
     const {type,latitude,longitude,description}=req.body;
-    const newObject = new Objet({type,latitude,longitude,description,imagePath:req.file.path});
-    newObject.user = req.user.id;
-    await newObject.save();//Asynchronus process, to wait until the task be finished
-    //req.flash('success_msg','Note added successflly');
-    console.log(newObject);
-    res.status(200).json({status:'Saved'});
+    const errors = [];
+    if(!type){
+        errors.push({text: "Le champ type est vide, complétez-le!"});
+    } else if (type.length <= 0) {
+        errors.push({ text: 'Quel est le type de l\'objet?' });
+    } 
+    
+    if (!description){
+        errors.push({text:"le champ description est vide, complétez-le!"});
+    } else if(description.length<=0){
+        errors.push({text:"veuillez entrer une description pour votre objet!"});
+    } 
+    
+    if (errors.length>0){
+        res.status(500).json(errors);
+    } else{
+
+        const newObject = new Objet({type,latitude,longitude,description,imagePath:req.file.path});
+        newObject.user = req.user.id;
+        await newObject.save();//Asynchronus process, to wait until the task be finished
+        //req.flash('success_msg','Note added successflly');
+        console.log(newObject);
+        res.status(200).json({status:'Saved'});
+    } 
+    
 };
 
 objectCtrl.getAccess = (req,res)=>{
@@ -42,11 +61,22 @@ objectCtrl.getObject = async (req, res)=>{
 
 objectCtrl.editObject = async(req,res)=>{
     const {type,latitude,longitude,description} = req.body;
-    console.log('sI ENTERE')
-    console.log(req.body);
-    await Objet.findByIdAndUpdate(req.params.id,{type,latitude,longitude,description});
-    req.flash('success_msg','Objet updated successflly');
-    res.status(200).json({status:'Objet modifié'});
+    if (type.length <= 0) {
+        errors.push({ text: 'Quel est le type de l\'objet?' });
+    } 
+    
+    if (description.length<=0){
+        errors.push({text:"veuillez entrer une description pour votre objet!"});
+    } 
+    
+    if (errors.length>0){
+        res.status(500).json(errors);
+    } else{
+        console.log(req.body);
+        await Objet.findByIdAndUpdate(req.params.id,{type,latitude,longitude,description});
+        req.flash('success_msg','Objet updated successflly');
+        res.status(200).json({status:'Objet modifié'});
+    }
 };
 
 objectCtrl.deleteObject = async (req,res)=>{
