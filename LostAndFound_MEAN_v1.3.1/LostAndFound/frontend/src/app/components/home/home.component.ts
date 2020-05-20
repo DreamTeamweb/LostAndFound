@@ -176,6 +176,7 @@ export class HomeComponent implements OnInit {
       }, error => {
         console.log("error deleted")
       })
+      window.location.reload();
   }
 
   executerAction() {
