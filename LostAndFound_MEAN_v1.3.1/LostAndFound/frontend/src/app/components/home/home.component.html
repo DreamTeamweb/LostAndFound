@@ -27,7 +27,7 @@
                         <div class="row align-items-center">
                             <div class="col-12">
                                 <div class="row justify-content-between">
-                                    <h3 class="mb-0">Mes objets publiés</h3>
+                                    <h3 class="mb-0"> Tes objets publiés</h3>
                                     <button type="button" class="btn btn-primary">
                                         Total: <span class="badge badge-light">{{objects.length}}</span>
                                     </button>
@@ -83,7 +83,7 @@
                                         </span></button>
                                     <button type="button" class="btn btn-danger" data-toggle="modal"
                                         data-target="#confirmationModal"
-                                        (click)="confirmationAction(objet._id,2)">Supprimmer <span
+                                        (click)="confirmationAction(objet._id,2)">Supprimer <span
                                             class="material-icons align-middle">
                                             delete
                                         </span></button>
@@ -290,7 +290,7 @@
                     <ng-template #elseBlock>
                         <div class="card col-sm-12">
                             <div class="card-body text-center">
-                                <h1>Vous n'avez pas encore trouvé d'object.</h1>
+                                <h1>Il n'y a pas encore d'objets.</h1>
                             </div>
                         </div>
                     </ng-template>

@@ -1,35 +1,38 @@
 <br>
 <!-- Filter bar -->
+
 <div class="container">
-    <div class="row justify-content-center" >
-        <div class="form-check">
-            <div>
-                <input type="checkbox" id="is3dCheckBox" name="scales" >
-                <label for="scales">Filtrer</label>
+    <form class="form-inline">
+        <div class="form-group">
+            <select class="form-control" id="select_type">
+                <option value=-1>Type</option>
+                <option value=1>Carte</option>
+                <option value=2>Téléphone</option>
+                <option value=3>Clefs</option>
+                <option value=4>Sac à dos</option>
+                <option value=5>Autre</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="sr-only" for="myInput_keyword">Description</label>
+            <input class="form-control input-sm" type="text" id="myInput_keyword" (keyup)="selectKeyWords()" placeholder="Description">
+        </div>
+        <div class="form-group">
+            <input class="form-control input-sm" type="date" id="myInput_date" (keyup)="selectDate()" value="2020-05-12" min="2020-01-01" max="2020-12-31">
+        </div>
+        <div class="form-checkbox">
+            <label for="checkBoxFiltre" class="col-sm-2 control-label">Filtrer</label>
+            <div class="col-sm-10">
+                <input type="checkbox" class="form-control" id="is3dCheckBox" name="checkBoxFiltre">
             </div>
         </div>
-
         <div class="form-group">
-          <select class="form-control" id="select_type">
-            <option value=-1>Type</option>
-            <option value=1>Carte</option>
-            <option value=2>Téléphone</option>
-            <option value=3>Clefs</option>
-            <option value=4>Sac à dos</option>
-            <option value=5>Autre</option>
-          </select>
+            <!--Bouton appliquer filtre-->
+            <div class="input-group-prepend">
+            <button class="btn btn-primary" type="button" (click)="filter()" >Appliquer</button>
+            </div>
         </div>
-
-        <div class="col-2">
-          <input type="text" id="myInput_keyword" (keyup)="selectKeyWords()" placeholder="Mots-clefs">
-        </div>
-        <div class="col-2">
-          <input type="date" id="myInput_date" (keyup)="selectDate()" value="2020-05-12" min="2020-01-01" max="2020-12-31">
-        </div>
-        <div class="col-1">
-            <button type="button" class="btn btn-primary" (click)="filter()" >Appliquer</button>
-        </div>
-    </div>
+    </form>
 </div>
 
 
@@ -54,7 +57,9 @@
             </div>
             <hr class="m-0 p-0" />
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Mots clefs: {{objet.description}}</li>
+                <label for="list-item-desc">Description:</label>
+                <!--<li class="list-group-item">Description: </li>-->
+                <li class="list-item-desc"> {{objet.description}}</li>
                 <li class="list-group-item">Publié le:
                     <em>{{objet.date | date:'d MMM, y à H' }}h{{objet.date | date:'mm' }}</em></li>
             </ul>
