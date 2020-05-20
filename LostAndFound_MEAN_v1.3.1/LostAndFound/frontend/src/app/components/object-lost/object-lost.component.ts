@@ -19,6 +19,15 @@ export class ObjectLostComponent implements OnInit {
   showModalContent=1;// 1 = contact info , 2 = map info , 3= image preview
   zoom=18;
   path:string;
+
+  selectedType = -1;
+  selectedDescription = [""];
+  selectedDate = '1968-11-16T00:00:00';
+
+  isChecked = false;
+  filter_arr = [];
+  arrayAAfficher = [];
+
   constructor(public objectService: ObjectService, private router: Router, private main: AppComponent, public userService: UserService) { }
 
   ngOnInit(): void {
@@ -39,6 +48,7 @@ export class ObjectLostComponent implements OnInit {
     this.objectService.getObjects()
       .subscribe(res => {
         this.objectService.objects = res as Objet[];
+        this.arrayAAfficher = this.objectService.objects;
         this.main.logged = true;
         console.log(this.objectService.objects)
       },
@@ -72,9 +82,69 @@ export class ObjectLostComponent implements OnInit {
   previewImage(path: string){
       this.showModalContent=3;
       this.path = path;
-    
+
+  }
+
+  filter() {
+    // Declare variables
+    var filter_type,
+      filter_keyword,
+      filter_date;
+
+    this.isChecked = (<HTMLInputElement> document.getElementById("is3dCheckBox")).checked;
+
+    this.selectKeyWords();
+    this.selectDate();
+    this.selecType();
+
+    filter_type = this.selectedType;
+    filter_keyword = this.selectedDescription;
+    filter_date = this.selectedDate;
+
+    if (this.isChecked) {
+
+      this.filter_arr = [];
+      // Loop through all list items, and hide those who don't match the search query
+
+      var _j = 0 ;
+      for(var _i=0; _i< this.objectService.objects.length ; _i++) {
+
+        var isEvery = filter_keyword.every(item_str => this.objectService.objects[_i].description.includes(item_str));
+
+        if (
+          (this.objectService.objects[_i].type == filter_type || filter_type == -1) &&
+          isEvery &&
+          this.objectService.objects[_i].date >= filter_date ) {
+
+          this.filter_arr[_j] = this.objectService.objects[_i];
+          _j++;
+        }
+      }
+      this.arrayAAfficher = this.filter_arr;
+
+    } else {
+      this.arrayAAfficher = this.objectService.objects;
+    }
+  }
+
+  selecType() {
+    var a = (<HTMLInputElement>document.getElementById("select_type")).value as unknown;
+    this.selectedType = a as number;
+  }
+
+  selectKeyWords() {
+    var keyword_value;
+    keyword_value = (<HTMLInputElement>document.getElementById("myInput_keyword")).value;
+    keyword_value = String(keyword_value);
+    this.selectedDescription = keyword_value.split(" ");
+
+  }
+
+  selectDate(){
+    this.selectedDate = (<HTMLInputElement>document.getElementById("myInput_date")).value;
   }
 
 }
+
 
 

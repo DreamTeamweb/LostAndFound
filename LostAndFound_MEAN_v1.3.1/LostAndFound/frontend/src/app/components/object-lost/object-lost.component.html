@@ -1,11 +1,46 @@
+<br>
+<!-- Filter bar -->
 <div class="container">
-    <div *ngIf="objectService.objects?.length > 0; else elseBlock" class="row justify-content-center">
-        <div *ngFor="let objet of objectService.objects" class="card mx-3 my-3 photo">
+    <div class="row justify-content-center" >
+        <div class="form-check">
+            <div>
+                <input type="checkbox" id="is3dCheckBox" name="scales" >
+                <label for="scales">Filtrer</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+          <select class="form-control" id="select_type">
+            <option value=-1>Type</option>
+            <option value=1>Carte</option>
+            <option value=2>Téléphone</option>
+            <option value=3>Clefs</option>
+            <option value=4>Sac à dos</option>
+            <option value=5>Autre</option>
+          </select>
+        </div>
+
+        <div class="col-2">
+          <input type="text" id="myInput_keyword" (keyup)="selectKeyWords()" placeholder="Mots-clefs">
+        </div>
+        <div class="col-2">
+          <input type="date" id="myInput_date" (keyup)="selectDate()" value="2020-05-12" min="2020-01-01" max="2020-12-31">
+        </div>
+        <div class="col-1">
+            <button type="button" class="btn btn-primary" (click)="filter()" >Appliquer</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div *ngIf="arrayAAfficher?.length > 0; else elseBlock" class="row justify-content-center">
+        <div *ngFor="let objet of arrayAAfficher" class="card mx-3 my-3 photo">
             <div class="card-photo" (click)="previewImage(objet.imagePath)" data-toggle="modal" data-target="#exampleModal">
-                
+
                 <img src="http://localhost:3000/{{objet.imagePath}}"  class="preview"
                       alt="Image de l'objet">
-            
+
             </div>
             <div class="card-body pb-0" [ngSwitch]="objet.type">
                 <h6 class="card-title" *ngSwitchCase="1">Carte</h6>
