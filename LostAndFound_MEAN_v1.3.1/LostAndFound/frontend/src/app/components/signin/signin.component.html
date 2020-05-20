@@ -5,6 +5,12 @@
         <strong>Ooops!</strong> {{response.message}}.
     </div>
 </div>
+<div class="Bienvenue">
+    <div class="container">
+      <h1 class="display-4">Bienvenue, </h1>
+      <p class="lead">sur le site Lost'n Found qui recense les objects trouvés sur le campus de l'INSA de Lyon</p>
+    </div>
+  </div>
 <div class="row">
     <div class="col-sm-5 mx-auto">
         <div class="card mt-4 text-center">
@@ -19,16 +25,28 @@
                     <div class="form-row">
                         <div class="form-group col-sm-10  text-left">
                             <label for="inputEmail">Mail de l'INSA</label>
-                            <div class="input-group mb-3">
+                            <div class="input-group mb-2">
                                 <input type="text" class="form-control" placeholder="example.lost-found" id="inputEmail"
                                     formControlName="email" aria-label="Recipient's username"
                                     aria-describedby="basic-addon2" (keypress)="emailVal($event)"
                                     [ngClass]="{ 'is-invalid': loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)}"
                                     autofocus required>
                                 <div class="input-group-append">
-                                    <span class="input-group-text" id="basic-addon2">@insa-lyon.fr</span>
+                                    <span class="input-group-text" id="basic-addon">@insa-lyon.fr</span>
+                                </div>
+                                <div class="form-group col-sm-2">
+                                    <div class="container2 pull-right">
+                                        <span class="d-inline-block" data-container="body" data-title="Annonce"
+                                            data-toggle="popover" data-placement="right"
+                                            data-content="On utilise votre addresse de l'INSA afin de limiter le service au personnel de l'INSA et de préserver la sécurité">
+                                            <button class="btn btn-primary" role="button" disabled required>
+                                                <span class="material-icons align-middle">error_outline</span>
+                                            </button>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
+                            
                             <div class="form-control-feedback"
                                 *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">
                                 <div style="color:red; font-size:small"
@@ -37,17 +55,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-sm-2">
-                            <div class="container align-middle">
-                                <span class="d-inline-block" data-container="body" data-title="Annonce"
-                                    data-toggle="popover" data-placement="right"
-                                    data-content="On utilise votre addresse de l'INSA afin de limiter le service au personnel de l'INSA et de préserver la sécurité">
-                                    <button class="btn btn-primary" role="button" disabled required>
-                                        <span class="material-icons align-middle">error_outline</span>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
+                        
                     </div>
                     <div class="form-group text-left">
                         <label for="inputPassword">Mot de passe</label>
