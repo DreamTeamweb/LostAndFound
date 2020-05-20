@@ -55,3 +55,31 @@ agm-map{
     display: inline-block;
     font-size: 16px;
   } 
+
+
+  .list-item-desc {
+    display: inline-block;
+    overflow: scroll;
+    overflow-x: hidden;
+    //overflow-y: hidden;
+    height: 100px;
+
+  }
+
+  .form-group {
+      margin-left: 4px;
+      margin-right: 4px;
+      display: flex;
+  }
+
+  .form-checkbox {
+    margin-left: 10px;
+    margin-right: 10px;
+    max-width: 100px;
+    display: flex;
+  }
+
+  .form-inline {
+    justify-content: center;
+    display: flex;
+  }
