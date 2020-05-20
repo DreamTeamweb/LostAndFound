@@ -1,4 +1,4 @@
-<div class="container">
+<div class="row mt-3">
     
     <div class="col-md-5 mx-auto">
 
@@ -18,8 +18,8 @@
                             </legend>
                             <div class="col-md-4">
                                 <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" id="customRadio1" value="1"
-                                        (change)="onItemChange($event.target.value)">
+                                    <input type="radio" id="customRadio1" class="custom-control-input" value="1"
+                                        name="type" (change)="onItemChange($event.target.value)">
                                     <label class="custom-control-label" for="customRadio1">
                                         Carte
                                     </label>
@@ -76,8 +76,9 @@
                         <h6>Description</h6>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="inputDescription" class="form-control" placeholder="couleur, marque, porte-clés, TCL ..."
-                            required #description>
+                        <!--<input type="text" id="inputDescription" class="form-control" placeholder="couleur, marque, porte-clés, TCL ..." -->
+                        <textarea id="inputDescription" class="form-control" rows="4" cols="10" maxlength="400" placeholder="couleur, marque, porte-clés, TCL ..."
+                            required #description></textarea>
                         <div class="invalid-feedback" id="message">
                             Insérez une description.
                         </div>
