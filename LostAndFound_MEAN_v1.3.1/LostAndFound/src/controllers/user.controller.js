@@ -15,6 +15,25 @@ router.get('/users/signup', (req,res)=>{
     res.render('users/signup')
 });*/
 
+/* function checkPhoneNumber(val) {
+    //var num = document.getElementById(val).value; //modifier la variable document ici
+    //var mob=/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]$/g;
+    var myRegex = /^[+][0-9]{2,3}[\s]?[[0-9][0-9]?[\s]?]{1,5}$/;
+    if (myRegex.test(val) == false) {
+        //alert("Please Enter Valid Phone Number.");
+        //document.getElementById(val).value = "";
+        return false;
+    }
+     if (val.length > 15) {
+         console.log("Le numéro est trop long")
+        //alert("Only 15 characters allowed for Phone Number field.");
+        //document.getElementById(val).value = "";
+        return false;
+    }
+
+    return true;
+} */
+
 userCtrl.createUser = async (req, res) => {
     console.log(req.body);
     const { name, lastname, email, number, password, confirmPassword } = req.body;
@@ -40,6 +59,21 @@ userCtrl.createUser = async (req, res) => {
         errors.push({text: 'Ne mettez pas l\'extension de l\'adresse mail' });
     }
 
+    //PARTIE VERIF NUMERO DE TEL
+    //var myRegex = /^[+][0-9]{2,3}[\s]?[[0-9][0-9]?[\s]?]{1,5}$/;
+    //var myRegex=/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]$/;
+    /* var myRegex = /(\+\d+(\s|-))?0\d(\s|-)?(\d{2}(\s|-)?){4}/;
+    if (myRegex.test(number) == false) {
+        //alert("Please Enter Valid Phone Number.");
+        //document.getElementById(val).value = "";
+        errors.push({text: "le numéro n'est pas valide"});
+    }
+    if (number.length > 15) {
+        //alert("Only 15 characters allowed for Phone Number field.");
+        //document.getElementById(val).value = "";
+        errors.push({text: "Le numéro est trop long"});
+    } */
+    
     if(!password){
         errors.push({text: "Le champ mot de passe est resté vide, complétez-le!"});
     } else if(password.length <= 0) {
