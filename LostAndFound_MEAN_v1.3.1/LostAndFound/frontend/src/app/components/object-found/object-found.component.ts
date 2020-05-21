@@ -55,7 +55,7 @@ export class ObjectFoundComponent implements OnInit {
 
   validationData(description: HTMLInputElement) {
     this.errors = [];
-    if (this.typeT != "1" && this.typeT != "2" && this.typeT != "3" && this.typeT != "4" && this.typeT != "5") {
+    if (this.typeT != "1" && this.typeT != "2" && this.typeT != "3" && this.typeT != "4" && this.typeT != "5" && this.typeT != "6") {
       this.errors.push("Sélectionnez un type d'objet");
     }
     if (!description.value) {
@@ -146,7 +146,7 @@ export class ObjectFoundComponent implements OnInit {
     for (let i = 0; i < byteString.length; i++) {
       int8Array[i] = byteString.charCodeAt(i);
     }
-    const blob = new Blob([int8Array], { type: 'image/jpeg' });    
+    const blob = new Blob([int8Array], { type: 'image/jpeg' });
     return blob;
  }
 }

@@ -1,5 +1,5 @@
 <div class="row mt-3">
-    
+
     <div class="col-md-5 mx-auto">
 
         <div class="alert alert-danger alert-dismissible fade show" *ngFor="let error of errors" role="alert">
@@ -48,9 +48,16 @@
                                     </label>
                                 </div>
                                 <div class="custom-control custom-radio">
-                                    <input type="radio" id="customRadio5" class="custom-control-input" value="5"
+                                  <input type="radio" id="customRadio5" class="custom-control-input " value="5"
+                                      name="type" (change)="onItemChange($event.target.value)">
+                                  <label class="custom-control-label" for="customRadio5">
+                                      Portefeuille
+                                  </label>
+                              </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio6" class="custom-control-input" value="6"
                                         name="type" (change)="onItemChange($event.target.value)" #type>
-                                    <label class="custom-control-label" for="customRadio5">
+                                    <label class="custom-control-label" for="customRadio6">
                                         Autres
                                     </label>
                                 </div>
@@ -117,7 +124,7 @@
 <p>
     <hr> Mon objet 1
     Description
-    image 
+    image
 <p>
     Mon objet 2
     Description

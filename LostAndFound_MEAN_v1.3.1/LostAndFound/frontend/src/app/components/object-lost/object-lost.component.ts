@@ -91,8 +91,6 @@ export class ObjectLostComponent implements OnInit {
       filter_keyword,
       filter_date;
 
-    this.isChecked = (<HTMLInputElement> document.getElementById("is3dCheckBox")).checked;
-
     this.selectKeyWords();
     this.selectDate();
     this.selecType();
@@ -101,30 +99,31 @@ export class ObjectLostComponent implements OnInit {
     filter_keyword = this.selectedDescription;
     filter_date = this.selectedDate;
 
-    if (this.isChecked) {
 
-      this.filter_arr = [];
-      // Loop through all list items, and hide those who don't match the search query
+    this.filter_arr = [];
+    // Loop through all list items, and hide those who don't match the search query
 
-      var _j = 0 ;
-      for(var _i=0; _i< this.objectService.objects.length ; _i++) {
+    var _j = 0 ;
+    for(var _i=0; _i< this.objectService.objects.length ; _i++) {
 
-        var isEvery = filter_keyword.every(item_str => this.objectService.objects[_i].description.includes(item_str));
+      var isEvery = filter_keyword.every(item_str => this.objectService.objects[_i].description.includes(item_str));
 
-        if (
-          (this.objectService.objects[_i].type == filter_type || filter_type == -1) &&
-          isEvery &&
-          this.objectService.objects[_i].date >= filter_date ) {
+      console.log("type : " + (this.objectService.objects[_i].type == filter_type || filter_type == -1));
+      console.log("description : " + isEvery);
+      console.log("date : " + this.objectService.objects[_i].date >= filter_date);
 
-          this.filter_arr[_j] = this.objectService.objects[_i];
-          _j++;
-        }
+      if (
+        (this.objectService.objects[_i].type == filter_type || filter_type == -1) &&
+        isEvery &&
+        this.objectService.objects[_i].date >= filter_date ) {
+
+        this.filter_arr[_j] = this.objectService.objects[_i];
+        _j++;
       }
-      this.arrayAAfficher = this.filter_arr;
-
-    } else {
-      this.arrayAAfficher = this.objectService.objects;
     }
+
+    this.arrayAAfficher = this.filter_arr;
+
   }
 
   selecType() {
