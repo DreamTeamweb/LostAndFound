@@ -8,7 +8,7 @@
 <div class="Bienvenue">
     <div class="container">
       <h1 class="display-4">Bienvenue, </h1>
-      <p class="lead">sur le site Lost'n Found qui recense les objects trouvés sur le campus de l'INSA de Lyon</p>
+      <p class="lead">sur le site Lost'n Found qui recense les objets trouvés sur le campus de l'INSA de Lyon</p>
     </div>
   </div>
 <div class="row">
@@ -51,7 +51,7 @@
                                 *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">
                                 <div style="color:red; font-size:small"
                                     *ngIf="loginForm.controls['email'].errors.required">
-                                    Adresse mail requis
+                                    Adresse mail requise
                                 </div>
                             </div>
                         </div>
@@ -77,10 +77,10 @@
                         </button>
                     </div>
                     <div class="form-group text-center">
-                        <p>Vous n'avez pas un compte?
+                        <p>Vous n'avez pas de compte?
                             <a [routerLink]="['/signup']">Inscrivez-vous</a></p>
                         <p>Mot de passe oublié?
-                            <a style="color: #007bff; cursor:pointer"data-toggle="modal" data-target="#exampleModal"> Récupérer</a></p>
+                            <a style="color: #007bff; cursor:pointer"data-toggle="modal" data-target="#exampleModal"> Le récupérer</a></p>
                     </div>
                 </form>
             </div>
