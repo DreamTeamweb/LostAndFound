@@ -1,6 +1,11 @@
 <br>
 <!-- Filter bar -->
-
+<div class="cont">
+    <div class="container">
+      <h1 class="display-4">Les objects trouvés: </h1>
+      <p class="lead">Recherchez les par type, mots-clé ou avec une date.</p>
+    </div>
+  </div>
 <div class="container">
     <form class="form-inline">
         <div class="form-group">
@@ -25,7 +30,7 @@
         <div class="form-group">
             <!--Bouton appliquer filtre-->
             <div class="input-group-prepend">
-            <button class="btn btn-primary" type="button" (click)="filter()" >Appliquer</button>
+            <button class="btn btn-bleu" type="button" (click)="filter()" >Appliquer</button>
             </div>
         </div>
     </form>
@@ -66,7 +71,7 @@
                         (click)="selectModal(objet.latitude,objet.longitude)">
                         Localisation
                     </button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                    <button type="button" class="btn btn-bleu" data-toggle="modal" data-target="#exampleModal"
                         (click)="setIdUser(objet.user)">
                         Contacter
                     </button>
@@ -155,7 +160,7 @@
                         </agm-map>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                        <button type="button" class="btn btn-bleu" data-dismiss="modal">Ok</button>
                     </div>
                 </div>
 
@@ -171,7 +176,7 @@
                         <img src="http://localhost:3000/{{path}}" class="img-fluid img-thumbnail total" alt="">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                        <button type="button" class="btn btn-bleu" data-dismiss="modal">Ok</button>
                     </div>
                 </div>
 
