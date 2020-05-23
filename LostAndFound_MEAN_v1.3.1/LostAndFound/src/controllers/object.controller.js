@@ -60,6 +60,7 @@ objectCtrl.getObject = async (req, res)=>{
 };
 
 objectCtrl.editObject = async(req,res)=>{
+    const errors = [];
     const {type,latitude,longitude,description} = req.body;
     if (type.length <= 0) {
         errors.push({ text: 'Quel est le type de l\'objet?' });
@@ -75,7 +76,7 @@ objectCtrl.editObject = async(req,res)=>{
         console.log(req.body);
         await Objet.findByIdAndUpdate(req.params.id,{type,latitude,longitude,description});
         req.flash('success_msg','Objet updated successflly');
-        res.status(200).json({status:'Objet modifié'});
+        res.status(200).json({succes:true,message: "Object updated"});
     }
 };
 
@@ -83,7 +84,7 @@ objectCtrl.deleteObject = async (req,res)=>{
     const photo = await Objet.findByIdAndDelete(req.params.id);
     await fs.unlink(path.resolve(photo.imagePath));//Delete image
     req.flash('success_msg','Note deleted successflly');
-    res.status(200).json({status:'Objet suprimé'});
+    res.status(200).json({succes:true,message: "Object deleted"});
 };
 
 //Photos testing
@@ -104,8 +105,6 @@ objectCtrl.getPhotos = async(req,res)=>{
     res.json(objects);
 
 }
-
-
 
 
 module.exports = objectCtrl;

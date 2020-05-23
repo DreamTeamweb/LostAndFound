@@ -85,13 +85,15 @@ export class ObjectLostComponent implements OnInit {
 
   }
 
+  getCheckBox(event){
+    this.isChecked = event as boolean;
+  }
+
   filter() {
     // Declare variables
     var filter_type,
       filter_keyword,
       filter_date;
-
-    this.isChecked = (<HTMLInputElement> document.getElementById("is3dCheckBox")).checked;
 
     this.selectKeyWords();
     this.selectDate();
