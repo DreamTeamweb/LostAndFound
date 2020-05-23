@@ -85,10 +85,6 @@ export class ObjectLostComponent implements OnInit {
 
   }
 
-  getCheckBox(event){
-    this.isChecked = event as boolean;
-  }
-
   filter() {
     // Declare variables
     var filter_type,

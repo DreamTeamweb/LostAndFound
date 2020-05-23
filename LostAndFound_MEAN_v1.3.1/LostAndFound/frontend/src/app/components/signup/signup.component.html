@@ -47,8 +47,6 @@
                                         [ngClass]="{ 'is-invalid': userForm.controls['email'].invalid && (userForm.controls['email'].dirty || userForm.controls['email'].touched)}">
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="basic-addon2">@insa-lyon.fr</span>
-                                        <a tabindex="0" class="btn btn-success color-18469c" role="button" data-toggle="popover" data-trigger="focus" title="Informations" data-content="On utilise votre addresse de l'INSA afin de limiter le service au personnel de l'INSA et de préserver la sécurité"><span class="material-icons align-middle">error_outline</span></a> 
-
                                     </div>
                                 </div>
                                 <div class="form-control-feedback"
@@ -59,7 +57,17 @@
                                     </div>
                                 </div>
                             </div>
-                            
+                            <div class="form-group col-sm-2">
+                                <div class="container align-middle">
+                                    <span class="d-inline-block" data-container="body" data-title="Annonce"
+                                        data-toggle="popover" data-placement="right"
+                                        data-content="On utilise votre addresse de l'INSA afin de limiter le service au personnel de l'INSA et de préserver la sécurité">
+                                        <button class="btn btn-warning" role="button" disabled>
+                                            <span class="material-icons align-middle">error_outline</span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group  col-sm-6">

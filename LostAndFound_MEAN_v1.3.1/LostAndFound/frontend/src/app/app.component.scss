@@ -1,29 +1,19 @@
 .navbar{
     background: linear-gradient(rgb(24, 3, 138) 0%, #010738 100%);
+    height: 100px;
+    line-height: 200px;
     font-size: 17px;
-    padding: 0;
-    margin: 0;
- 
 }
 
-.dropdown-menu{
-    opacity:1;
-    visibility:visible;
-    background: #010738 ;
+
+nav img{
+    position:relative; 
+    top : 25%;
 }
 
-.navbar-brand{
-    margin-left: 100px;
-    font-size: 36px;
-    font-family: 'Philosopher', sans-serif;
-    color: white;
+nav ul{
+    position: relative;
+    top: 400%;
+    left: 5%;
 }
 
-.container{
-    margin-left: auto;
-    text-align: center;
-}
-
-.nav-item{
-    text-align: center;
-}

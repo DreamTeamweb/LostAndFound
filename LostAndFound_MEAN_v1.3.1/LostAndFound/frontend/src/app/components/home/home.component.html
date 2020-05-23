@@ -28,7 +28,7 @@
                             <div class="col-12">
                                 <div class="row justify-content-between">
                                     <h3 class="mb-0">Objets publiés</h3>
-                                    <button type="button" class="btn btn-bleu">
+                                    <button type="button" class="btn btn-primary">
                                         Total: <span class="badge badge-light">{{objects.length}}</span>
                                     </button>
                                 </div>
@@ -76,7 +76,7 @@
                                     </button>
                                 </h5>
                                 <div class="btn-group btn-group-md text-right" role="group">
-                                    <button type="button" class="btn btn-bleu" data-toggle="modal"
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#exampleModalCenter" (click)="getObject(objet._id)">Modifier <span
                                             class="material-icons align-middle">
                                             settings
@@ -232,7 +232,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" id="modifyCancel"
                                             data-dismiss="modal" (click)="dismissModal()">Annuler</button>
-                                        <button type="button" class="btn btn-bleu" data-toggle="modal"
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
                                             data-target="#confirmationModal" (click)="validation(objectForm)" [disabled]="!objectService.selectedObject.description">
                                             Enregistrer
                                         </button>
@@ -255,7 +255,7 @@
                                             </agm-map>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-bleu"
+                                            <button type="button" class="btn btn-primary"
                                                 data-dismiss="modal">Ok</button>
                                         </div>
                                     </div>
@@ -280,7 +280,7 @@
                                     <div class="modal-footer">
                                         <button type="button" id="confirmationCancel" class="btn btn-secondary"
                                             data-dismiss="modal">Non</button>
-                                        <button type="button" class="btn btn-bleu"
+                                        <button type="button" class="btn btn-primary"
                                             (click)="executerAction()">Oui</button>
                                     </div>
                                 </div>
@@ -346,7 +346,7 @@
                                         <div class="form-group pt-2">
                                             <button class="btn btn-secondary mr-3"
                                                 (click)="showEditNumber()">Annuler</button>
-                                            <button class="btn btn-bleu"
+                                            <button class="btn btn-primary"
                                                 (click)="updateUser(editNumberF)">Modifier</button>
                                         </div>
                                     </form>

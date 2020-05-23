@@ -15,7 +15,7 @@ const newUser = new UserTest({ name:'Jose Nicolas', email:'Chaparrojosenicolas2@
 
 console.log(token);
 
-/*huhuhu*/
+
 const oauth2Client = new OAuth2(
     "627868108356-j67441tc82e0cvfkop8k2ig95mm3bjhv.apps.googleusercontent.com",
     "TUKa-K1PVqQH-ecwUiDf_l-O", // Client Secret
