@@ -6,20 +6,20 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
         <div *ngIf="hour > 18 || hour < 6; else elseBlockTime" class="container-fluid">
             <!-- Brand -->
-            <p class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">Bonsoir {{user.name}}! 🌛</p>
+            <p class="h4 mb-0 text-white d-none d-lg-inline-block">Bonsoir {{user.name}}! 🌛</p>
             <!-- Form -->
             <!-- User -->
         </div>
         <ng-template #elseBlockTime>
             <div class="container-fluid">
-                <p class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">Bonjour {{user.name}}! 🌞</p>
+                <p class="h4 mb-0 text-white d-none d-lg-inline-block">Bonjour {{user.name}}! 🌞</p>
             </div>
         </ng-template>
     </nav>
     <!-- Header -->
 
     <!-- Page content -->
-    <div class="container-fluid mt--7">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-xl-8 order-xl-2">
                 <div class="card bg-secondary shadow">

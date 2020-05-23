@@ -52,9 +52,11 @@ h1 {
     color : red
 }*/
 body{
-    background: linear-gradient(rgb(201, 233, 241) 0%, #000851 100%);
+   /* background: linear-gradient(rgb(201, 233, 241) 0%, #000851 100%);*/
     background-attachment: fixed;
+    background-image: radial-gradient( circle 987px at 99% 2%,  rgba(22,183,229,1) 0%, rgba(9,54,103,1) 90% );
 }
+
 
 footer {
     height:50px;
