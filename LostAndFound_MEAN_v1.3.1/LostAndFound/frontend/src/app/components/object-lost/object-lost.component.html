@@ -1,5 +1,10 @@
-
-
+<!-- Filter bar -->
+<div class="cont">
+    <div class="container">
+        <h1 class="display-4">Les objects trouvés: </h1>
+        <p class="lead">Recherchez les par type, mots-clé ou avec une date.</p>
+    </div>
+</div>
 <div class="container">
     <!-- Filter bar -->
 
@@ -11,26 +16,32 @@
                 <option value=2>Téléphone</option>
                 <option value=3>Clefs</option>
                 <option value=4>Sac à dos</option>
-                <option value=5>Autre</option>
+                <option value=5>Portefeuille</option>
+                <option value=6>Autre</option>
             </select>
         </div>
         <div class="form-group">
             <label class="sr-only" for="myInput_keyword">Description</label>
-            <input class="form-control input-sm" type="text" id="myInput_keyword" (keyup)="selectKeyWords()" placeholder="Description">
+            <input class="form-control input-sm" type="text" id="myInput_keyword" (keyup)="selectKeyWords()"
+                placeholder="Description">
         </div>
         <div class="form-group">
-            <input class="form-control input-sm" type="date" id="myInput_date" (keyup)="selectDate()" value="2020-05-12" min="2020-01-01" max="2020-12-31">
+            <input class="form-control input-sm" type="date" id="myInput_date" (keyup)="selectDate()" min="2020-01-01"
+                max="2020-12-31">
         </div>
         <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input align-middle" (change)="getCheckBox(isChecked ? false : true)" id="is3dCheckBox" name="checkBoxFiltre"
- >
-            <label class="custom-control-label" for="is3dCheckBox"><h6>Filtrer</h6></label>
+            <input type="checkbox" class="custom-control-input align-middle"
+                (change)="getCheckBox(isChecked ? false : true)" id="is3dCheckBox" name="checkBoxFiltre">
+            <label class="custom-control-label" for="is3dCheckBox">
+                <h6>Filtrer</h6>
+            </label>
+
         </div>
 
         <div class="form-group">
             <!--Bouton appliquer filtre-->
             <div class="input-group-prepend">
-            <button class="btn btn-primary" type="button" (click)="filter()" >Appliquer</button>
+                <button class="btn btn-bleu" type="button" (click)="filter()">Appliquer</button>
             </div>
         </div>
     </form>
@@ -38,10 +49,10 @@
 
     <div *ngIf="arrayAAfficher?.length > 0; else elseBlock" class="row justify-content-center">
         <div *ngFor="let objet of arrayAAfficher" class="card mx-3 my-3 photo">
-            <div class="card-photo" (click)="previewImage(objet.imagePath)" data-toggle="modal" data-target="#exampleModal">
+            <div class="card-photo" (click)="previewImage(objet.imagePath)" data-toggle="modal"
+                data-target="#exampleModal">
 
-                <img src="http://localhost:3000/{{objet.imagePath}}"  class="preview"
-                      alt="Image de l'objet">
+                <img src="http://localhost:3000/{{objet.imagePath}}" class="preview" alt="Image de l'objet">
 
             </div>
             <div class="card-body pb-0" [ngSwitch]="objet.type">
@@ -49,7 +60,8 @@
                 <h6 class="card-title" *ngSwitchCase="2">Téléphone</h6>
                 <h6 class="card-title" *ngSwitchCase="3">Clefs</h6>
                 <h6 class="card-title" *ngSwitchCase="4">Sac à dos</h6>
-                <h6 class="card-title" *ngSwitchCase="5">Autre</h6>
+                <h6 class="card-title" *ngSwitchCase="5">Portefeuille</h6>
+                <h6 class="card-title" *ngSwitchCase="6">Autre</h6>
                 <h6 class="card-title" *ngSwitchDefault>{{objet.type}}</h6>
 
                 <!--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
@@ -68,7 +80,7 @@
                         (click)="selectModal(objet.latitude,objet.longitude)">
                         Localisation
                     </button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                    <button type="button" class="btn btn-bleu" data-toggle="modal" data-target="#exampleModal"
                         (click)="setIdUser(objet.user)">
                         Contacter
                     </button>
@@ -89,9 +101,9 @@
                     <div class="modal-body">
                         <div class="modal-body">
                             <h5>Vous êtes sûr(e) qu'il s'agît bien de votre objet?</h5>
-                            <p>Veuillez contacter la personne par un de ces cordonnées</p>
-                            <p style="color: blue;">Souvenez-vous que ce service a été développé pour le profit
-                                de la communauté de l'INSA</p>
+                            <p>Veuillez contacter la personne par une de ces coordonnées</p>
+                            <p style="color: blue;">Souvenez-vous que ce service a été développé pour la communauté INSA
+                            </p>
                             <p style="font-style: italic;">“L’honnêteté n’est pas un habit des dimanches, mais
                                 un vêtement de tous les jours.”</p>
                             <p class="text-right" style="font-weight: bold;">- Etienne Rey</p>
@@ -158,7 +170,7 @@
                         </agm-map>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                        <button type="button" class="btn btn-bleu" data-dismiss="modal">Ok</button>
                     </div>
                 </div>
 
@@ -174,7 +186,7 @@
                         <img src="http://localhost:3000/{{path}}" class="img-fluid img-thumbnail total" alt="">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                        <button type="button" class="btn btn-bleu" data-dismiss="modal">Ok</button>
                     </div>
                 </div>
 
@@ -182,6 +194,8 @@
         </div>
     </div>
     <ng-template #elseBlock>
-        <span class="d-block p-2 bg-primary text-white rounded pt-2"><h2>Pas d'objets trouvés.</h2></span>
+        <span class="d-block p-2 bg-primary text-white rounded pt-2">
+            <h2>Pas d'objets trouvés.</h2>
+        </span>
     </ng-template>
 </div>

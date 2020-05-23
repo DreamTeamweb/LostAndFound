@@ -47,6 +47,8 @@
                                         [ngClass]="{ 'is-invalid': userForm.controls['email'].invalid && (userForm.controls['email'].dirty || userForm.controls['email'].touched)}">
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="basic-addon2">@insa-lyon.fr</span>
+                                        <a tabindex="0" class="btn btn-success color-18469c" role="button" data-toggle="popover" data-trigger="focus" title="Informations" data-content="On utilise votre addresse de l'INSA afin de limiter le service au personnel de l'INSA et de préserver la sécurité"><span class="material-icons align-middle">error_outline</span></a> 
+
                                     </div>
                                 </div>
                                 <div class="form-control-feedback"
@@ -57,17 +59,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group col-sm-2">
-                                <div class="container align-middle">
-                                    <span class="d-inline-block" data-container="body" data-title="Annonce"
-                                        data-toggle="popover" data-placement="right"
-                                        data-content="On utilise votre addresse de l'INSA afin de limiter le service au personnel de l'INSA et de préserver la sécurité">
-                                        <button class="btn btn-warning" role="button" disabled>
-                                            <span class="material-icons align-middle">error_outline</span>
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
+                            
                         </div>
                         <div class="form-row">
                             <div class="form-group  col-sm-6">
@@ -110,7 +102,7 @@
                                     *ngIf="userForm.controls['password'].invalid && (userForm.controls['password'].dirty || userForm.controls['password'].touched)">
                                     <div style="color:red; font-size:small"
                                         *ngIf="userForm.controls['password'].errors.pattern || userForm.controls['password'].errors.required">
-                                        Mot de passe pas valide
+                                        Mot de passe invalide
                                     </div>
                                 </div>
 
@@ -133,15 +125,15 @@
                                         Confirmez le mot de passe
                                     </div>
                                     <div *ngIf="userForm.controls['confirmPassword'].errors.pattern">
-                                        Passwords do not match
+                                        Les mots de passe ne correspondent pas.
                                     </div>
                                 </div>
 
                             </div>
                             <div class="form-group col-sm-12">
                                 <small id="passwordHelpBlock" class="form-text text-muted">
-                                    Le mot de passe doit contenir au moins 8 caractères, dont une letre minuscule,
-                                    mayuscule, un chiffre et un caractère spécial ( -!@#$%^&/? )
+                                    Le mot de passe doit contenir au moins 8 caractères, dont une minuscule,
+                                    une majuscule, un chiffre et un caractère spécial ( -!@#$%^&/? )
                                 </small>
                             </div>
 
@@ -149,7 +141,7 @@
                         <div class="form-group">
                             <button type="submit" [disabled]="userForm.pristine || userForm.invalid"
                                 class="btn btn-primary btn-block">
-                                Créer compte
+                                Créer un compte
                             </button>
                         </div>
                         <div class="form-group text-center">
