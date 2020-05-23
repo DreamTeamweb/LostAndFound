@@ -9,38 +9,39 @@
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <div *ngIf="logged; else elseBlock">
-                <ul class="navbar-nav">
+        <div class="collapse navbar-collapse" id="navbarNav" *ngIf="logged; else elseBlock">
 
-                    <li class="nav-item">
-                        <a class="nav-link align-middle" [routerLink]="['/object-found']">J'ai trouvé un objet <span
-                                class="material-icons align-middle"></span><span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link align-middle" [routerLink]="['/object-lost']">Je cherche un objet <span
-                                class="material-icons align-middle"></span></a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Mon Profil
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="nav-link align-middle" [routerLink]="['/home']">Mon profil <span
-                                    class="align-middle"></span><span class="sr-only">(current)</span></a>
-                            <a class="nav-link" [routerLink]="['/contact']">Contact</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="nav-link" [routerLink]="['/signin']" (click)="logout()">Déconnexion <span
-                                    class="sr-only">(current)</span></a>
-                        </div>
-                    </li>
-                </ul>
+            <ul class="navbar-nav">
 
-            </div>
-            <ng-template #elseBlock>
+                <li class="nav-item">
+                    <a class="nav-link align-middle" [routerLink]="['/object-found']">J'ai trouvé un objet <span
+                            class="material-icons align-middle"></span><span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link align-middle" [routerLink]="['/object-lost']">Je cherche un objet <span
+                            class="material-icons align-middle"></span></a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Mon Profil
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="nav-link align-middle" [routerLink]="['/home']">Mon profil <span
+                                class="align-middle"></span><span class="sr-only">(current)</span></a>
+                        <a class="nav-link" [routerLink]="['/contact']">Contact</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="nav-link" [routerLink]="['/signin']" (click)="logout()">Déconnexion <span
+                                class="sr-only">(current)</span></a>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+        <ng-template #elseBlock>
+            <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link" [routerLink]="['/signin']">Se connecter <span
@@ -50,8 +51,9 @@
                         <a class="nav-link" [routerLink]="['/signup']">S'inscrire</a>
                     </li>
                 </ul>
-            </ng-template>
-        </div>
+            </div>
+        </ng-template>
+
 
     </div>
 
