@@ -1,7 +1,13 @@
-<br>
 <!-- Filter bar -->
-
+<div class="cont">
+    <div class="container">
+        <h1 class="display-4">Les objects trouvés: </h1>
+        <p class="lead">Recherchez les par type, mots-clé ou avec une date.</p>
+    </div>
+</div>
 <div class="container">
+    <!-- Filter bar -->
+
     <form class="form-inline">
         <div class="form-group">
             <select class="form-control" id="select_type">
@@ -16,29 +22,37 @@
         </div>
         <div class="form-group">
             <label class="sr-only" for="myInput_keyword">Description</label>
-            <input class="form-control input-sm" type="text" id="myInput_keyword" (keyup)="selectKeyWords()" placeholder="Description">
+            <input class="form-control input-sm" type="text" id="myInput_keyword" (keyup)="selectKeyWords()"
+                placeholder="Description">
         </div>
         <div class="form-group">
-            <input class="form-control input-sm" type="date" id="myInput_date" (keyup)="selectDate()" min="2020-01-01" max="2020-12-31">
+            <input class="form-control input-sm" type="date" id="myInput_date" (keyup)="selectDate()" min="2020-01-01"
+                max="2020-12-31">
+        </div>
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input align-middle"
+                (change)="getCheckBox(isChecked ? false : true)" id="is3dCheckBox" name="checkBoxFiltre">
+            <label class="custom-control-label" for="is3dCheckBox">
+                <h6>Filtrer</h6>
+            </label>
+
         </div>
 
         <div class="form-group">
             <!--Bouton appliquer filtre-->
             <div class="input-group-prepend">
-            <button class="btn btn-primary" type="button" (click)="filter()" >Appliquer</button>
+                <button class="btn btn-bleu" type="button" (click)="filter()">Appliquer</button>
             </div>
         </div>
     </form>
-</div>
+    <!--Filter ends-->
 
-
-<div class="container">
     <div *ngIf="arrayAAfficher?.length > 0; else elseBlock" class="row justify-content-center">
         <div *ngFor="let objet of arrayAAfficher" class="card mx-3 my-3 photo">
-            <div class="card-photo" (click)="previewImage(objet.imagePath)" data-toggle="modal" data-target="#exampleModal">
+            <div class="card-photo" (click)="previewImage(objet.imagePath)" data-toggle="modal"
+                data-target="#exampleModal">
 
-                <img src="http://localhost:3000/{{objet.imagePath}}"  class="preview"
-                      alt="Image de l'objet">
+                <img src="http://localhost:3000/{{objet.imagePath}}" class="preview" alt="Image de l'objet">
 
             </div>
             <div class="card-body pb-0" [ngSwitch]="objet.type">
@@ -54,9 +68,9 @@
             </div>
             <hr class="m-0 p-0" />
             <ul class="list-group list-group-flush">
-                <label for="list-item-desc">Description:</label>
+                <!-- <label for="list-item-desc"></label> -->
                 <!--<li class="list-group-item">Description: </li>-->
-                <li class="list-item-desc"> {{objet.description}}</li>
+                <li class="list-group-item">Description: {{objet.description}}</li>
                 <li class="list-group-item">Publié le:
                     <em>{{objet.date | date:'d MMM, y à H' }}h{{objet.date | date:'mm' }}</em></li>
             </ul>
@@ -66,7 +80,7 @@
                         (click)="selectModal(objet.latitude,objet.longitude)">
                         Localisation
                     </button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                    <button type="button" class="btn btn-bleu" data-toggle="modal" data-target="#exampleModal"
                         (click)="setIdUser(objet.user)">
                         Contacter
                     </button>
@@ -88,7 +102,8 @@
                         <div class="modal-body">
                             <h5>Vous êtes sûr(e) qu'il s'agît bien de votre objet?</h5>
                             <p>Veuillez contacter la personne par une de ces coordonnées</p>
-                            <p style="color: blue;">Souvenez-vous que ce service a été développé pour la communauté INSA</p>
+                            <p style="color: blue;">Souvenez-vous que ce service a été développé pour la communauté INSA
+                            </p>
                             <p style="font-style: italic;">“L’honnêteté n’est pas un habit des dimanches, mais
                                 un vêtement de tous les jours.”</p>
                             <p class="text-right" style="font-weight: bold;">- Etienne Rey</p>
@@ -155,7 +170,7 @@
                         </agm-map>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                        <button type="button" class="btn btn-bleu" data-dismiss="modal">Ok</button>
                     </div>
                 </div>
 
@@ -171,7 +186,7 @@
                         <img src="http://localhost:3000/{{path}}" class="img-fluid img-thumbnail total" alt="">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                        <button type="button" class="btn btn-bleu" data-dismiss="modal">Ok</button>
                     </div>
                 </div>
 
@@ -179,10 +194,8 @@
         </div>
     </div>
     <ng-template #elseBlock>
-        <div class="card mx-auto">
-            <div class="card-body">
-                <h1>Il n'y a pas encore d'objets.</h1>
-            </div>
-        </div>
+        <span class="d-block p-2 bg-primary text-white rounded pt-2">
+            <h2>Pas d'objets trouvés.</h2>
+        </span>
     </ng-template>
 </div>

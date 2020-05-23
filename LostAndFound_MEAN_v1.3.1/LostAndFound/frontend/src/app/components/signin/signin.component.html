@@ -33,19 +33,13 @@
                                     autofocus required>
                                 <div class="input-group-append">
                                     <span class="input-group-text" id="basic-addon">@insa-lyon.fr</span>
+                                    <a tabindex="0" class="btn btn-bleu" role="button" data-toggle="popover" data-trigger="focus" title="Informations" data-content="On utilise votre addresse de l'INSA afin de limiter le service au personnel de l'INSA et de préserver la sécurité"><span class="material-icons align-middle">error_outline</span></a> 
+                                
                                 </div>
-                                <div class="form-group col-sm-2">
-                                    <div class="container2 pull-right">
-                                        <span class="d-inline-block" data-container="body" data-title="Annonce"
-                                            data-toggle="popover" data-placement="right"
-                                            data-content="On utilise votre addresse de l'INSA afin de limiter le service au personnel de l'INSA et de préserver la sécurité">
-                                            <button class="btn btn-primary" role="button" disabled required>
-                                                <span class="material-icons align-middle">error_outline</span>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
+                                                          
+                                
                             </div>
+                          
                             
                             <div class="form-control-feedback"
                                 *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">
@@ -54,6 +48,8 @@
                                     Adresse mail requise
                                 </div>
                             </div>
+                           
+                            
                         </div>
                         
                     </div>
@@ -71,7 +67,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block"
+                        <button type="submit" class="btn btn-bleu btn-block"
                             [disabled]="loginForm.pristine || loginForm.invalid">
                             Connexion
                         </button>
