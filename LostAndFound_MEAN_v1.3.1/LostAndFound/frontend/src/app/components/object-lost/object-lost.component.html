@@ -1,15 +1,21 @@
 <!-- Filter bar -->
-<div class="cont">
-    <div class="container">
+
+<div class="container">
+    <div class="cont">
         <h1 class="display-4">Les objets trouvés: </h1>
         <p class="lead">Recherchez-les par type, mot-clé ou avec une date.</p>
     </div>
-</div>
-<div class="container">
     <!-- Filter bar -->
+    <!-- <div class="custom-control custom-checkbox col-sm-2">
+            <input type="checkbox" class="custom-control-input align-middle"
+                (change)="getCheckBox(isChecked ? false : true)" id="is3dCheckBox" name="checkBoxFiltre">
+            <label class="custom-control-label" style="color:white" for="is3dCheckBox">
+                <h6>Filtre</h6>
+            </label>
 
-    <form class="form-inline">
-        <div class="form-group">
+        </div> -->
+    <form class="form-inline justify-content-center">
+        <div class="form-group mx-2">
             <select class="form-control" id="select_type">
                 <option value=-1>Type</option>
                 <option value=1>Carte</option>
@@ -20,25 +26,16 @@
                 <option value=6>Autre</option>
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group mx-2">
             <label class="sr-only" for="myInput_keyword">Description</label>
-            <input class="form-control input-sm" type="text" id="myInput_keyword" (keyup)="selectKeyWords()"
+            <input class="form-control" type="text" id="myInput_keyword" (keyup)="selectKeyWords()"
                 placeholder="Description">
         </div>
-        <div class="form-group">
-            <input class="form-control input-sm" type="date" id="myInput_date" (keyup)="selectDate()" min="2020-01-01"
+        <div class="form-group mx-2">
+            <input class="form-control" type="date" id="myInput_date" (keyup)="selectDate()" min="2020-01-01"
                 max="2020-12-31">
         </div>
-        <!-- <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input align-middle"
-                (change)="getCheckBox(isChecked ? false : true)" id="is3dCheckBox" name="checkBoxFiltre">
-            <label class="custom-control-label" for="is3dCheckBox">
-                <h6>Filtrer</h6>
-            </label>
-
-        </div> -->
-
-        <div class="form-group">
+        <div class="form-group mx-2">
             <!--Bouton appliquer filtre-->
             <div class="input-group-prepend">
                 <button class="btn btn-bleu" type="button" (click)="filter()">Appliquer</button>
@@ -46,14 +43,12 @@
         </div>
     </form>
     <!--Filter ends-->
-
     <div *ngIf="arrayAAfficher?.length > 0; else elseBlock" class="row justify-content-center">
         <div *ngFor="let objet of arrayAAfficher" class="card mx-3 my-3 photo">
             <div class="card-photo" (click)="previewImage(objet.imagePath)" data-toggle="modal"
                 data-target="#exampleModal">
-
-                <img [src]=" objet.imagePath=='false' ? 'assets/img/no_photo.png': 'http://localhost:3000/'+objet.imagePath" class="preview" alt="Image de l'objet">
-
+                <img [src]=" objet.imagePath=='false' ? 'assets/img/no_photo.PNG': 'http://localhost:3000/'+objet.imagePath"
+                    class="preview" alt="Image de l'objet">
             </div>
             <div class="card-body pb-0" [ngSwitch]="objet.type">
                 <h6 class="card-title" *ngSwitchCase="1">Carte</h6>
@@ -68,8 +63,6 @@
             </div>
             <hr class="m-0 p-0" />
             <ul class="list-group list-group-flush">
-                <!-- <label for="list-item-desc"></label> -->
-                <!--<li class="list-group-item">Description: </li>-->
                 <li class="list-group-item">Description: {{objet.description}}</li>
                 <li class="list-group-item">Publié le:
                     <em>{{objet.date | date:'d MMM, y à H' }}h{{objet.date | date:'mm' }}</em></li>
@@ -183,7 +176,8 @@
                         </button>
                     </div>
                     <div class="modal-body full">
-                        <img [src]=" path=='false' ? 'assets/img/no_photo.png': 'http://localhost:3000/'+path" class="img-fluid img-thumbnail total" alt="">
+                        <img [src]=" path=='false' ? 'assets/img/no_photo.PNG': 'http://localhost:3000/'+path"
+                            class="img-fluid img-thumbnail total" alt="">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-bleu" data-dismiss="modal">Ok</button>

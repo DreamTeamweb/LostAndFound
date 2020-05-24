@@ -8,7 +8,7 @@
 .dropdown-menu{
     opacity:1;
     visibility:visible;
-    background: #010738 ;
+    background-color: transparent; 
 }
 
 .navbar-brand{
@@ -18,8 +18,17 @@
 
 
 
-.nav-item{
+.nav-link{
     text-align: center;
+    color: white !important;
 }
 
+
+.nav-link:hover{
+    color: #AEAEAE  !important;
+}
+
+.logout:hover{
+    font-weight: bold;
+}
 

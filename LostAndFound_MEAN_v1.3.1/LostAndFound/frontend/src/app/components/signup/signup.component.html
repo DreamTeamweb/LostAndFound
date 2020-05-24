@@ -11,7 +11,7 @@
                     <form [formGroup]="userForm" (ngSubmit)="addUser()" novalidate>
                         <div class="form-row">
                             <div class="form-group col-sm-6">
-                                <label for="inputName">Prénom</label>
+                                <label for="inputName">Prénom *</label>
                                 <input type="text" class="form-control" id="inputName" formControlName="name"
                                     placeholder="Prénom"
                                     [ngClass]="{ 'is-invalid': userForm.controls['name'].invalid && (userForm.controls['name'].dirty || userForm.controls['name'].touched)}" autofocus>
@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-sm-6">
-                                <label for="inputLasName">Nom</label>
+                                <label for="inputLasName">Nom *</label>
                                 <input type="text" class="form-control" id="inputLastName" formControlName="lastname"
                                     placeholder="Nom"
                                     [ngClass]="{ 'is-invalid': userForm.controls['lastname'].invalid && (userForm.controls['lastname'].dirty || userForm.controls['lastname'].touched)}">
@@ -39,7 +39,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-sm-10">
-                                <label for="inputEmail">Mail de l'INSA</label>
+                                <label for="inputEmail">Mail de l'INSA *</label>
                                 <div class="input-group mb-1">
                                     <input type="text" class="form-control" (keypress)="emailVal($event)"
                                         placeholder="example.lost-found" id="inputEmail" formControlName="email"
@@ -93,7 +93,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-sm-6">
-                                <label for="inputPassword">Mot de passe</label>
+                                <label for="inputPassword">Mot de passe *</label>
                                 <input [type]="show ? 'text' : 'password'" class="form-control"
                                     formControlName="password" placeholder="Mot de passe"
                                     aria-describedby="passwordHelpBlock" (keypress)="passwordVal($event)"
@@ -107,7 +107,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-sm-6">
-                                <label for="inputConfirmPassword">Confirmez le mot de passe</label>
+                                <label for="inputConfirmPassword">Confirmez le mot de passe *</label>
                                 <input type="password" class="form-control" formControlName="confirmPassword"
                                     [pattern]="f.password.value" placeholder="Confirmez le mot de passe"
                                     [ngClass]="{ 'is-invalid': userForm.controls['confirmPassword'].invalid && (userForm.controls['confirmPassword'].dirty || userForm.controls['confirmPassword'].touched)}">

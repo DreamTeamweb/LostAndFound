@@ -91,7 +91,7 @@ objectCtrl.editObject = async(req,res)=>{
 objectCtrl.deleteObject = async (req,res)=>{
     const objet = await Objet.findByIdAndDelete(req.params.id);
     if(objet.imagePath != "false"){
-        await fs.unlink(path.resolve(photo.imagePath));//Delete image
+        await fs.unlink(path.resolve(objet.imagePath));//Delete image
     }
     res.status(200).json({succes:true,message: "Object deleted"});
 };

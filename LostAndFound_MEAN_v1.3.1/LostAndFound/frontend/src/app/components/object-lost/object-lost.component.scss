@@ -43,47 +43,13 @@ agm-map{
     background-size: cover;
 }
 
-.button {
-    background-color: #4CAF50; 
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-  } 
 
-
-  .list-item-desc {
-    display: inline-block;
-    overflow: scroll;
-    overflow-x: hidden;
-    //overflow-y: hidden;
-    height: 100px;
-
-  }
-
- 
-
-  .form-checkbox {
-    margin-left: 10px;
-    margin-right: 10px;
-    max-width: 100px;
-    display: flex;
-  }
-
-  .form-inline {
-    justify-content: center;
-    display: flex;
-  }
-
-  .cont{
-        font-style: inherit;
-        color: white;
-  }
+.cont{
+  font-style: inherit;
+  color: white;
+}
   
-  .btn-bleu{
-    background-color:#18469c !important;
-    color: white;
-  }
+.btn-bleu{
+  background-color:#18469c !important;
+  color: white;
+}
