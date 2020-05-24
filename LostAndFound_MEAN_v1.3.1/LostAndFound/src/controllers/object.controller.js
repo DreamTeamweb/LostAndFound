@@ -9,7 +9,7 @@ objectCtrl.addObject = (req,res)=>{//The seconds parameter verifies if the user 
 
 objectCtrl.createObject = async(req,res)=>{
     console.log(req.body);
-    const {type,latitude,longitude,description}=req.body;
+    const {type,latitude,longitude,description,image}=req.body;
     const errors = [];
     if(!type){
         errors.push({text: "Le champ type est vide, complétez-le!"});
@@ -26,8 +26,16 @@ objectCtrl.createObject = async(req,res)=>{
     if (errors.length>0){
         res.status(500).json(errors);
     } else{
-
-        const newObject = new Objet({type,latitude,longitude,description,imagePath:req.file.path});
+        const newObject = new Objet({type,latitude,longitude,description});
+        if(req.file){
+            const {path} = req.file.path;
+            console.log("Entre aqui")
+            newObject.imagePath = req.file.path;
+        }else{
+            console.log("No hay foto");
+            newObject.imagePath= false;
+        }
+        
         newObject.user = req.user.id;
         await newObject.save();//Asynchronus process, to wait until the task be finished
         //req.flash('success_msg','Note added successflly');
@@ -81,9 +89,10 @@ objectCtrl.editObject = async(req,res)=>{
 };
 
 objectCtrl.deleteObject = async (req,res)=>{
-    const photo = await Objet.findByIdAndDelete(req.params.id);
-    await fs.unlink(path.resolve(photo.imagePath));//Delete image
-    req.flash('success_msg','Note deleted successflly');
+    const objet = await Objet.findByIdAndDelete(req.params.id);
+    if(objet.imagePath != "false"){
+        await fs.unlink(path.resolve(photo.imagePath));//Delete image
+    }
     res.status(200).json({succes:true,message: "Object deleted"});
 };
 

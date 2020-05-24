@@ -33,7 +33,7 @@ export class ObjectService {
     return fd;
   }
 
-  postObject(type:string, latitude:any, longitude:any, description:string, photo:File){
+  postObject(type:string, latitude:any, longitude:any, description:string, photo?:File){
     const objet = this.createObjectForm(type,latitude,longitude,description,photo);
     return this.http.post(this.URL_API+'object-found',objet,{
       observe:'body',

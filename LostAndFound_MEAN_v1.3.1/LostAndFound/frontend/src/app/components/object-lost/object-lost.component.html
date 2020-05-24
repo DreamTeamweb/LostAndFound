@@ -52,7 +52,7 @@
             <div class="card-photo" (click)="previewImage(objet.imagePath)" data-toggle="modal"
                 data-target="#exampleModal">
 
-                <img src="http://localhost:3000/{{objet.imagePath}}" class="preview" alt="Image de l'objet">
+                <img [src]=" objet.imagePath=='false' ? 'assets/img/no_photo.png': 'http://localhost:3000/'+objet.imagePath" class="preview" alt="Image de l'objet">
 
             </div>
             <div class="card-body pb-0" [ngSwitch]="objet.type">
@@ -183,7 +183,7 @@
                         </button>
                     </div>
                     <div class="modal-body full">
-                        <img src="http://localhost:3000/{{path}}" class="img-fluid img-thumbnail total" alt="">
+                        <img [src]=" path=='false' ? 'assets/img/no_photo.png': 'http://localhost:3000/'+path" class="img-fluid img-thumbnail total" alt="">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-bleu" data-dismiss="modal">Ok</button>

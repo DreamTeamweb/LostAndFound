@@ -27,9 +27,11 @@ export class ObjectFoundComponent implements OnInit {
   zoom = 15;
   minZoom = 10;
   localCompressedURl: string;
-  sizeOFCompressedImage: number;
+  isChecked = false;
+  maxHeight = 400;
+  maxWidth = 600;
 
-  constructor(public objectService: ObjectService, private router: Router, private main: AppComponent,private imageCompress: NgxImageCompressService) { }
+  constructor(public objectService: ObjectService, private router: Router, private main: AppComponent, private imageCompress: NgxImageCompressService) { }
   typeT = "";
 
   ngOnInit(): void {
@@ -69,7 +71,7 @@ export class ObjectFoundComponent implements OnInit {
     if (!this.locationChosen) {
       this.errors.push("Insérez une localisation");
     }
-    if (!this.file) {
+    if (!this.file && this.isChecked) {
       this.errors.push("Insérez une image")
       document.getElementById("inputPhoto").style.borderColor = "red";
     } else {
@@ -108,35 +110,65 @@ export class ObjectFoundComponent implements OnInit {
 
   onPhotoSelected(event): void {
     if (event.target.files && event.target.files[0]) {
-      this.file = <File>event.target.files[0];
-      //image preview
-      const reader = new FileReader();
-      reader.onload = (event: any) => {
-        //this.photoSelected = reader.result
-        this.compressFile(event.target.result,this.file['name'])//Compress image
-      };
-      reader.readAsDataURL(this.file);
+      console.log(event.target.files[0]['size'] /(1024 * 1.024));
+      if(event.target.files[0]['size'] /(1024 * 1.024) <= 5000 ){//we get the size in KB
+        this.file = <File>event.target.files[0];
+        //image preview
+        const reader = new FileReader();
+        reader.onload = (event: any) => {
+          //this.photoSelected = reader.result
+          //Initiate the JavaScript Image object.
+          var image = new Image();
+          image.src = event.target.result;
+          image.onload =  (event:any) =>{//get width and height
+            let  loadedImage = event.currentTarget;
+            let width = loadedImage.width;
+            let height = loadedImage.height;
+            if(width > this.maxWidth || height > this.maxHeight){//size validation
+              this.compressFile(image.src, this.file['name'],width,height)//Compress image
+            }else{
+              this.localCompressedURl = image.src;
+            }
+          }
+        };
+        
+        console.log(event.target.files[0]['size'] /(1024 * 1.024));
+        reader.readAsDataURL(this.file);
+      }else{
+        console.log("Image très grande")
+      }
     }
   }
 
   //Compress image
-  //*************Verifier la taile des images avant compresser, width, height********
-  //Verifier la taille en bytes < 5Mb
   //Ver un back_up
-  compressFile(image,fileName) {
+  compressFile(image, fileName,width, height) {
     var orientation = -1;
-      this.imageCompress.compressFile(image, orientation, 50, 50).then(
-        result => {
-          const imgResultAfterCompress = ""+result;
-          this.localCompressedURl = result;
-          // create file from byte
-          const imageName = fileName;
-          // call method that creates a blob from dataUri
-          const imageBlob = this.dataURItoBlob(imgResultAfterCompress.split(',')[1]);
-          this.file = new File([imageBlob], imageName, { type: 'image/png' });
-          console.log("file size:",this.file['size']/(1024*1024));
-        }
-      );
+    var widthProportion;
+    var heightProportion;
+    if(height > width){//vertical photo proportion
+      heightProportion = this.maxHeight / height;
+      widthProportion= heightProportion;
+    }else{//horizontal photo proportion
+      widthProportion = this.maxWidth / width;
+      heightProportion = widthProportion;
+    }
+    if(widthProportion*100 < 15){//improve big images quality
+      widthProportion = widthProportion*2;
+      heightProportion = widthProportion;
+    } 
+    this.imageCompress.compressFile(image, orientation, widthProportion*100, heightProportion*100).then(//compression
+      result => {
+        const imgResultAfterCompress = "" + result;
+        this.localCompressedURl = result;
+        // create file from byte
+        const imageName = fileName;
+        // call method that creates a blob from dataUri
+        const imageBlob = this.dataURItoBlob(imgResultAfterCompress.split(',')[1]);
+        this.file = new File([imageBlob], imageName, { type: 'image/png' });
+        console.log("file size:", this.file['size'] / (1024 * 1024));
+      }
+    );
   }
 
   dataURItoBlob(dataURI) {
@@ -148,5 +180,14 @@ export class ObjectFoundComponent implements OnInit {
     }
     const blob = new Blob([int8Array], { type: 'image/jpeg' });
     return blob;
- }
+  }
+
+  //Checkbox
+  getCheckBox(event){
+    this.isChecked = event as boolean;
+    if(!this.isChecked){
+      this.localCompressedURl = undefined;
+      this.file = undefined;
+    }
+  }
 }
