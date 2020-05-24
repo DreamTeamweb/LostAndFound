@@ -49,8 +49,6 @@ export class ObjectService {
     })
   }
 
-
-
   getObjects(){
     return this.http.get(this.URL_API+'object-lost',{
       observe:'body',
@@ -77,7 +75,6 @@ export class ObjectService {
   }
 
   putObject(objet : Objet){
-    console.log('Aqui '+objet._id);
     return this.http.put(this.URL_API+'user/objects/'+objet._id,objet,{
       observe:'body',
       withCredentials: true,

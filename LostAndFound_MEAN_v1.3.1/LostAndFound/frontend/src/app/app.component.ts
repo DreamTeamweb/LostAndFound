@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { UserService } from './services/user.service';
 import { Component } from '@angular/core';
-declare const hola: any;
+
 
 @Component({
   selector: 'app-root',
@@ -15,13 +15,15 @@ export class AppComponent {
   constructor(private user: UserService, private router: Router) {
   }
 
-  logout(){
+  logout() {
     this.user.logout()
-    .subscribe(
-      data=>{console.log(data);
-      this.logged=false;
-      this.router.navigate(['/signin'])},
-      error=>console.error(error)
-    )
+      .subscribe(
+        data => {
+          console.log(data);
+          this.logged = false;
+          this.router.navigate(['/signin'])
+        },
+        error => console.error(error)
+      )
   }
 }

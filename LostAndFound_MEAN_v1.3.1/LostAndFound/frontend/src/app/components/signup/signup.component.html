@@ -14,7 +14,8 @@
                                 <label for="inputName">Prénom *</label>
                                 <input type="text" class="form-control" id="inputName" formControlName="name"
                                     placeholder="Prénom"
-                                    [ngClass]="{ 'is-invalid': userForm.controls['name'].invalid && (userForm.controls['name'].dirty || userForm.controls['name'].touched)}" autofocus>
+                                    [ngClass]="{ 'is-invalid': userForm.controls['name'].invalid && (userForm.controls['name'].dirty || userForm.controls['name'].touched)}"
+                                    autofocus>
                                 <div class="form-control-feedback"
                                     *ngIf="userForm.controls['name'].invalid && (userForm.controls['name'].dirty || userForm.controls['name'].touched)">
                                     <div style="color:red; font-size:small"
@@ -47,7 +48,10 @@
                                         [ngClass]="{ 'is-invalid': userForm.controls['email'].invalid && (userForm.controls['email'].dirty || userForm.controls['email'].touched)}">
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="basic-addon2">@insa-lyon.fr</span>
-                                        <a tabindex="0" class="btn btn-success color-18469c" role="button" data-toggle="popover" data-trigger="focus" title="Informations" data-content="On utilise votre addresse de l'INSA afin de limiter le service au personnel de l'INSA et de préserver la sécurité"><span class="material-icons align-middle">error_outline</span></a> 
+                                        <a tabindex="0" class="btn btn-success color-18469c" role="button"
+                                            data-toggle="popover" data-trigger="focus" title="Informations"
+                                            data-content="On utilise votre addresse de l'INSA afin de limiter le service au personnel de l'INSA et de préserver la sécurité"><span
+                                                class="material-icons align-middle">error_outline</span></a>
 
                                     </div>
                                 </div>
@@ -59,7 +63,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                         <div class="form-row">
                             <div class="form-group  col-sm-6">
@@ -150,7 +154,29 @@
                         </div>
                     </form>
                 </div>
-                
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div #myModal class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Annonce</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Veuillez vérifier votre mail <a href="https://login.insa-lyon.fr/zimbra/?" target="_blank">
+                        {{f.email.value}}@insa-lyon.fr
+                    </a>  pour activer votre compte. N'oubliez pas vérifier les spams.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="redirect()">D'accord</button>
+                </div>
             </div>
         </div>
     </div>

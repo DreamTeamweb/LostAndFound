@@ -26,7 +26,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="example.lost-found" id="inputEmail"
                                     formControlName="email" aria-label="Recipient's username"
-                                    aria-describedby="basic-addon2" (keypress)="emailVal($event)"
+                                    aria-describedby="basic-addon2"
                                     [ngClass]="{ 'is-invalid': loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)}"
                                     autofocus required>
                                 <div class="input-group-append">

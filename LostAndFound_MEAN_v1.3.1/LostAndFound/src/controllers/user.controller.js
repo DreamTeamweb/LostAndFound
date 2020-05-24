@@ -1,7 +1,8 @@
 const User = require('../models/User');
 const userCtrl = {};
 const jwt = require('jsonwebtoken')
-
+const mail = require('./../config/mail.js')
+const secretKey = 'login'
 /*router.get('/users/signin',(req,res)=>{
     res.render('users/signin')
 });*/
@@ -19,7 +20,6 @@ userCtrl.createUser = async (req, res) => {
     console.log(req.body);
     const { name, lastname, email, number, password, confirmPassword } = req.body;
     const errors = [];
-    console.log('Ya quedo ' + confirmPassword);
     if (!name){
         errors.push({text: "Le champ nom est vide, complétez-le!"});
     } else if(name.length <= 0) {
@@ -31,7 +31,7 @@ userCtrl.createUser = async (req, res) => {
     } else if(lastname.length <= 0) {
         errors.push({ text: 'Inserez votre nom' });
     }
-
+    
     if(!email){
         errors.push({text:"le champ email est vide, complétez-le!"});
     } else if(email.length <= 0) {
@@ -42,11 +42,11 @@ userCtrl.createUser = async (req, res) => {
 
     //PARTIE VERIF NUMERO DE TEL
     var myRegex = /^\+[0-9]?()[0-9](\s|\S)(\d[0-9]{8,9})$/;
-    if (myRegex.test(number) == false) {
+    /*if (myRegex.test(number) == false) {
         console.log("erreur sur le numéro de tel",number)
         errors.push({text: "le numéro n'est pas valide"});
-    }
-    if (number.length > 15) {
+    }*/
+    if (number.length > 25) {
         errors.push({text: "Le numéro est trop long"});
     }
     
@@ -64,32 +64,37 @@ userCtrl.createUser = async (req, res) => {
     }else if (password != confirmPassword) {
         errors.push({ text: 'Les mots de passe ne correspondent pas' });
     }
-
+    
     if (errors.length > 0) {
-        res.status(500).json(errors);
+        res.status(200).json({success:false, message: errors});
     } else {
         const emailUser = await User.findOne({ email: email });
         if (emailUser) {
-            console.log("Ya existe");
             errors.push({ text: "Mail already in use" });
             //req.flash('error_msg','The email is already in use');
-            res.status(400).send({ message: 'email used' });
+            res.status(200).send({ success:false, message: 'email used' });
         } else {
-            const newUser = new User({ name, lastname, email, number, password });
+            const newUser = new User({ name, lastname, email, number, password,active:false });
             newUser.password = await newUser.encryptPassword(password);
-            await newUser.save();
+            const token = await jwt.sign({ name:newUser.name ,email:newUser.email }, secretKey, {expiresIn:'24h'});//Mail
+            newUser.temporarytoken = token;//Mail
 
-            //jwt.sign({ _id: newUser }, 'secretKey');//secretkey, any word 
-            //req.flash('success_msg',"Vous venez d'être inscrit");
-            res.status(201).json({ status:'Success' });
+            await mail.sendMail({name,lastname,email,token});
+            await newUser.save();
+            res.status(201).json({ success:true,message:'Signed up' });
         }
     }
 };
 
 
 userCtrl.LoginUser = (req, res) => {
-    console.log('Hola si salio' + req.body);
+    console.log(req.body);
 };
+
+userCtrl.logOut = function (req, res, next) {
+    req.logout();
+    return res.status(200).json({success:true, message: 'Logout Success' })
+}
 
 userCtrl.getUser = async (req, res) => {
     const id = req.params.id;
@@ -98,10 +103,6 @@ userCtrl.getUser = async (req, res) => {
     console.log(user);
     res.status(200).json(user);
 };
-/*router.get('/users/logout',(req,res)=>{
-    req.logout();
-    res.redirect('/');
-});*/
 
 
 userCtrl.editUser = async (req, res) => {
@@ -109,22 +110,26 @@ userCtrl.editUser = async (req, res) => {
     console.log(req.body);
     await User.findByIdAndUpdate(req.params.id, { number });
     //req.flash('success_msg','Objet updated successflly');
-    res.status(200).json({ status: 'User modifié' });
+    res.status(200).json({ success:true, message: 'User modifié' });
 };
 
 
 //Testing mail
-const secretKey="acm1pt";
 userCtrl.activateUser = async (req, res) => {
     const token  = req.params.token;
     console.log('Aqui ', req.params.token);
-    //User.findOne({temporarytoken:token})
-    jwt.verify(token,secretKey,function(err,decoded){
+    
+    jwt.verify(token,secretKey,async function(err,decoded){
         if(err){
             res.json({success:false, message:token})
         }else{
             console.log(decoded);
-            res.json({success:true, message: 'Activation link good'})
+            const user = await User.findOne({temporarytoken:token});
+            if(user){
+            await User.findByIdAndUpdate(user._id, { active:true,temporarytoken:'already_verified' });
+                //res.json({success:true, message: 'Activation link good'})
+            }
+            res.redirect('http://localhost:4200/signin');
         }
     })
 

@@ -22,7 +22,14 @@ export class UserService {
     this.confirm_password = '';
   }
 
-
+  getConnection(){
+    return this.http.get(this.URL_API+'object-found',{
+      observe:'body',
+      withCredentials: true,
+      headers: new HttpHeaders().append('Content-Type','application/json')
+    })
+  }
+  
   postUser(user: User) {
     return this.http.post(this.URL_API + 'signup', user, {
       observe: 'body',

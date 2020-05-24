@@ -10,6 +10,9 @@ passport.use(new LocalStrategy({
     if(!user){
         return done(null,false,{message:'Adresse mail inexistante'});
     }else{
+        if(!user.active){
+            return done(null,false,{message:'Compte pas actif. Veuillez vérifier votre adresse mail INSA'});
+        }
         const match = await user.matchPassword(password);
         if(match){
             return done(null,user);

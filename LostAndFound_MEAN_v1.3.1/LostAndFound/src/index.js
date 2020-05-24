@@ -8,7 +8,7 @@ const passport = require('passport');
 const morgan = require ('morgan');
 const cors = require('cors');
 const MongoStore = require('connect-mongo')(session);
-const jwt = require('jsonwebtoken');
+
 //Initializations
 const app = express();
 /****MongoDb */

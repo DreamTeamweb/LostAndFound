@@ -1,8 +1,12 @@
-
+declare var jQuery:any;
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { ViewChild } from '@angular/core';
+import { ElementRef } from '@angular/core';
+import { AppComponent } from 'src/app/app.component';
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -10,13 +14,14 @@ import { Router } from "@angular/router";
   providers: [UserService]
 })
 export class SignupComponent implements OnInit {
+  @ViewChild('myModal') myModal:ElementRef;
   errors: string[];
   isChecked: boolean;
   dialCode = "+33";
   userForm: FormGroup;
   show: boolean;//see password
 
-  constructor(public userService: UserService, private router: Router, private fb: FormBuilder) {
+  constructor(public userService: UserService, private router: Router,private main: AppComponent, private fb: FormBuilder) {
     this.isChecked = false;
     // initialize variable value
     this.show = false;
@@ -24,10 +29,23 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.Connection();
   }
 
 
+  Connection() {
+    this.userService.getConnection()
+      .subscribe(
+        res => {
+          console.log(res);
+          this.main.logged = true;
+          this.router.navigate(['/object-lost'])
+        },
+        error => {
+          this.main.logged = false;
+          console.log(error); 
+        })
+  }
 
   createForm() {
     this.userForm = this.fb.group({
@@ -72,19 +90,20 @@ export class SignupComponent implements OnInit {
     
     if (!this.userForm.invalid) {
       this.f.number.setValue(this.dialCode + " " + this.f.number.value)
-      /*this.userService.postUser(this.userForm.value)
+      jQuery(this.myModal.nativeElement).modal('show'); 
+      this.userService.postUser(this.userForm.value)
         .subscribe(res => {
 
           console.log(res);
-          this.resetForm(this.userForm);
-          this.router.navigate(['/signin']);
+
+          //this.router.navigate(['/signin']);
         },
           error => {
             console.log(error);
             //const {errors} = error;
             console.log(error.data)
           }
-        )*/
+        )
     }
   }
 
@@ -144,5 +163,9 @@ export class SignupComponent implements OnInit {
     this.show = !this.show;
   }
 
+  redirect(){
+    this.resetForm(this.userForm);
+    this.router.navigate(['/signin']);
+  }
 }
 

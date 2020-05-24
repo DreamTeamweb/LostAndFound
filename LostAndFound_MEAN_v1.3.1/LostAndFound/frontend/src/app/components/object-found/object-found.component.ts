@@ -6,8 +6,6 @@ import { AppComponent } from 'src/app/app.component';
 import { NgxImageCompressService } from 'ngx-image-compress';
 
 
-
-
 @Component({
   selector: 'app-object-found',
   templateUrl: './object-found.component.html',
@@ -61,7 +59,7 @@ export class ObjectFoundComponent implements OnInit {
       this.errors.push("Sélectionnez un type d'objet");
     }
     if (!description.value) {
-      //this.errors.push("Insérez une description");
+      this.errors.push("Insérez une description");
       description.style.borderColor = "red";
       document.getElementById("message").style.display = "block";
     } else {
@@ -75,11 +73,10 @@ export class ObjectFoundComponent implements OnInit {
       this.errors.push("Insérez une image")
       document.getElementById("inputPhoto").style.borderColor = "red";
     } else {
-      document.getElementById("inputPhoto").style.borderColor = "green";
+      document.getElementById("inputPhoto").style.borderColor = "white";
     }
     if (this.errors.length == 0) {
       this.addObject(description.value);
-
     }
     console.log(this.errors);
   }
@@ -153,8 +150,9 @@ export class ObjectFoundComponent implements OnInit {
       widthProportion = this.maxWidth / width;
       heightProportion = widthProportion;
     }
-    if(widthProportion*100 < 15){//improve big images quality
-      widthProportion = widthProportion*2;
+    console.log(widthProportion*100);
+    if(widthProportion*100 < 35){//improve big images quality
+      widthProportion = .5;/*widthProportion*4*/
       heightProportion = widthProportion;
     } 
     this.imageCompress.compressFile(image, orientation, widthProportion*100, heightProportion*100).then(//compression

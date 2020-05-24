@@ -7,7 +7,9 @@ const UserSchema = new Schema({
     email: {type: String, required: true},
     number:{type:String},
     password: {type: String, required: true},
-    date:{type: Date, default: Date.now}
+    date:{type: Date, default: Date.now},
+    active: {type: Boolean, required: true, defaull:false},//Mail verfication
+    temporarytoken:{type: String, required: true}//Mail verfication
 });
 
 //Encrypt the password

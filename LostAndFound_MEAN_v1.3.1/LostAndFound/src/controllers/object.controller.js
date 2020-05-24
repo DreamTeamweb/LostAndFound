@@ -24,35 +24,33 @@ objectCtrl.createObject = async(req,res)=>{
     } 
     
     if (errors.length>0){
-        res.status(500).json(errors);
+        res.status(200).json({succes: false, message:errors});
     } else{
         const newObject = new Objet({type,latitude,longitude,description});
         if(req.file){
             const {path} = req.file.path;
-            console.log("Entre aqui")
             newObject.imagePath = req.file.path;
         }else{
-            console.log("No hay foto");
-            newObject.imagePath= false;
+            newObject.imagePath= false;//Pas de photo envoyée
         }
         
         newObject.user = req.user.id;
         await newObject.save();//Asynchronus process, to wait until the task be finished
         //req.flash('success_msg','Note added successflly');
         console.log(newObject);
-        res.status(200).json({status:'Saved'});
+        res.status(200).json({success:true, message:'Saved'});
     } 
     
 };
 
 objectCtrl.getAccess = (req,res)=>{
-    res.status(200).json({status:'Logged'});
+    res.status(200).json({success:true, message:'Logged'});
 }
 
 objectCtrl.getObjects = async(req,res)=>{
     //const notes = await Objet.find({user:req.user.id}).sort({date:'desc'});
     const objects = await Objet.find().sort({date:'desc'});
-    res.json(objects);//Render takes the main HTML/CSS tenplates
+    res.status(200).json(objects);//Render takes the main HTML/CSS tenplates
 
 };
 
@@ -62,10 +60,10 @@ objectCtrl.getUserObjects = async(req,res)=>{
 
 };
 
-objectCtrl.getObject = async (req, res)=>{
+/*objectCtrl.getObject = async (req, res)=>{
     const object = await Objet.findById(req.params.id);
     res.render('notes/edit-note',{object});
-};
+};*/
 
 objectCtrl.editObject = async(req,res)=>{
     const errors = [];
@@ -79,11 +77,11 @@ objectCtrl.editObject = async(req,res)=>{
     } 
     
     if (errors.length>0){
-        res.status(500).json(errors);
+        res.status(200).json({success:false, message: errors});
     } else{
         console.log(req.body);
         await Objet.findByIdAndUpdate(req.params.id,{type,latitude,longitude,description});
-        req.flash('success_msg','Objet updated successflly');
+       // req.flash('success_msg','Objet updated successflly');
         res.status(200).json({succes:true,message: "Object updated"});
     }
 };
@@ -105,7 +103,7 @@ objectCtrl.createPhoto = async(req,res)=>{
     newObject.user = req.user.id;
     console.log(newObject)//guardar esto en la base de datos
     await newObject.save();
-    res.json({message:'Photo successfully saved!'})
+    res.status(200).json({success:true, message:'Photo successfully saved!'})
 }
 
 
