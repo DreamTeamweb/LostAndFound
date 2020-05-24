@@ -29,8 +29,9 @@ export class HomeComponent implements OnInit {
   zoom:number;
   showModalMap:boolean;
   file:File;
-  dialCode:string;
-
+  dialCode = "+33";
+  dialCodeF:string;
+  changedFlag= false;
   numberForm:FormGroup;
 
   constructor(public objectService: ObjectService, private router: Router, public userService: UserService, private main: AppComponent, private f: FormBuilder,private imageCompress: NgxImageCompressService) {
@@ -50,18 +51,22 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     var date = new Date();
     this.hour = date.getHours();
-    console.log(this.hour)
+    //console.log(this.hour)
     if(!this.user.number){
       this.dialCode ="+33";
     }
   }
 
-  showEditNumber() {
+  showEditNumber(action:boolean) {
     if (this.editNumberForm) {
       this.editNumberForm = false;
       this.user.number = this.fixedNumber;
     } else {
       this.editNumberForm = true;
+    }
+    if(!action){
+      this.dialCode = this.dialCodeF;
+      this.changedFlag = false;
     }
   }
 
@@ -75,14 +80,12 @@ export class HomeComponent implements OnInit {
     this.userService.getUserHome()
       .subscribe(
         data => {
-          console.log(data);
+          //console.log(data);
           this.user = data as User;
           this.getObjectsUser(this.user._id);
-          
           this.dialCode = this.user.number.substr(0,this.user.number.indexOf(' '));
+          this.dialCodeF = this.dialCode;
           this.user.number = this.user.number.substr(this.user.number.indexOf(' ')+1);
-          console.log(this.dialCode);
-          console.log(this.user.number)
           this.main.logged = true;
           if(!this.user.number){
             this.dialCode ="+33";
@@ -102,7 +105,7 @@ export class HomeComponent implements OnInit {
     this.objectService.getObjectsUser(user)
       .subscribe(res => {
         this.objects = res as Objet[];
-        console.log(this.objects.length)
+        //console.log(this.objects.length)
       },
         error => console.log("Request error")
       )
@@ -110,7 +113,7 @@ export class HomeComponent implements OnInit {
 
 
   getObject(id: string) {
-    console.log(id);
+    //console.log(id);
     
     this.objectService.selectedObject = this.objects.find(({ _id }) => _id === id);
     this.typeT = this.objectService.selectedObject.type;
@@ -144,8 +147,8 @@ export class HomeComponent implements OnInit {
 
   confirmationAction(param: any, opt: number) {
     this.action = "modifier";
-    console.log(opt);
-    console.log(param);
+    //console.log(opt);
+    //console.log(param);
     if (opt == 2) {
       console.log("1st sup")
       this.action = "supprimer";
@@ -191,16 +194,19 @@ export class HomeComponent implements OnInit {
   }
 
   updateUser(form: NgForm) {
+    if(!this.changedFlag){
+      this.dialCode = "+33";
+    }
     form.controls['number'].setValue(this.dialCode+" "+form.controls['number'].value)
     console.log(form);
     this.userService.putUser(form.value)
       .subscribe(res => {
-        //this.resetForm(form);
-        console.log("user updated");
-        this.dialCode = this.user.number.substr(0,this.user.number.indexOf(' '));
+        this.dialCode = this.user.number.substr(0,this.user.number.indexOf(' '));  
         this.user.number = this.user.number.substr(this.user.number.indexOf(' ')+1);
         this.fixedNumber = this.user.number;
+        this.dialCodeF = this.dialCode;
         document.getElementById('editNumberBtn').click();
+        this.changedFlag = false;
         console.log(res);
       }, error => {
         console.log("user update error")
@@ -226,7 +232,7 @@ export class HomeComponent implements OnInit {
   }
 
   onCountryChange(event) {
-    //console.log(event.dialCode)
+    this.changedFlag = true;
     this.dialCode = "+" + event.dialCode;
   }
 

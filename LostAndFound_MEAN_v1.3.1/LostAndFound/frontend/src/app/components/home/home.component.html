@@ -316,7 +316,7 @@
                         <div class="text-center">
                             <h3>
                                 {{user.name}} {{user.lastname}} <button id="editNumberBtn" title="Modifier coordonnées"
-                                    class="btn btn-sm btn-outline-secondary" (click)="showEditNumber()"><span
+                                    class="btn btn-sm btn-outline-secondary" (click)="showEditNumber(true)"><span
                                         class="material-icons align-middle">
                                         settings
                                     </span></button>
@@ -344,7 +344,7 @@
                                         <div class="form-group">
                                             <label>Numéro de téléphone:</label>
                                             <input type="phone" class="form-control" name="number" id="number"
-                                                #number="ngModel" [(ngModel)]="user.number" [ng2TelInputOptions]="{initialCountry: 'fr',onlyCountries: ['al', 'ad', 'at', 'by', 'be', 'ba', 'bg', 'hr', 'cz','ch', 'dk',
+                                                #number="ngModel" [(ngModel)]="user.number" [ng2TelInputOptions]="{initialCountry: 'fr',nationalMode:false,onlyCountries: ['al', 'ad', 'at', 'by', 'be', 'ba', 'bg', 'hr', 'cz','ch', 'dk',
                                             'ee', 'fo', 'fi', 'fr', 'de', 'gi', 'gr', 'va', 'hu', 'is', 'ie', 'it', 'lv',
                                             'li', 'lt', 'lu', 'mk', 'mt', 'md', 'mc', 'me', 'nl', 'no', 'pl', 'pt', 'ro',
                                             'ru', 'sm', 'rs', 'sk', 'si', 'es', 'se', 'ch', 'ua', 'gb'],preferredCountries: ['fr','es','ch', 'de','it'],separateDialCode: true}
@@ -353,7 +353,7 @@
                                         </div>
                                         <div class="form-group pt-2">
                                             <button class="btn btn-secondary mr-3"
-                                                (click)="showEditNumber()">Annuler</button>
+                                                (click)="showEditNumber(false)">Annuler</button>
                                             <button class="btn btn-bleu"
                                                 (click)="updateUser(editNumberF)">Modifier</button>
                                         </div>

@@ -75,7 +75,7 @@
                             <div class="form-group col-sm-6">
                                 <!-- <input id="phone" type="tel" class="form-control" name="number" #number="ngModel"
                                     [(ngModel)]="userService.selectedUser.number" placeholder="+33 06 58 48 79 21"> -->
-                                <input type="number" formControlName="number" [ng2TelInputOptions]="{initialCountry: 'fr',onlyCountries: ['al', 'ad', 'at', 'by', 'be', 'ba', 'bg', 'hr', 'cz','ch', 'dk',
+                                <input type="text" formControlName="number" [ng2TelInputOptions]="{initialCountry: 'fr',onlyCountries: ['al', 'ad', 'at', 'by', 'be', 'ba', 'bg', 'hr', 'cz','ch', 'dk',
                                 'ee', 'fo', 'fi', 'fr', 'de', 'gi', 'gr', 'va', 'hu', 'is', 'ie', 'it', 'lv',
                                 'li', 'lt', 'lu', 'mk', 'mt', 'md', 'mc', 'me', 'nl', 'no', 'pl', 'pt', 'ro',
                                 'ru', 'sm', 'rs', 'sk', 'si', 'es', 'se', 'ch', 'ua', 'gb'],preferredCountries: ['fr','es','ch', 'de','it'],separateDialCode: true}
@@ -105,14 +105,6 @@
                                         Mot de passe invalide
                                     </div>
                                 </div>
-
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="showPsw" name="showPsw"
-                                        (change)="showPassword()">
-                                    <label class="custom-control-label" for="showPsw">Afficher le mot de
-                                        passe</label>
-                                </div>
-
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="inputConfirmPassword">Confirmez le mot de passe</label>
@@ -128,7 +120,14 @@
                                         Les mots de passe ne correspondent pas.
                                     </div>
                                 </div>
-
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="showPsw" name="showPsw"
+                                        (change)="showPassword()">
+                                    <label class="custom-control-label" for="showPsw">Afficher le mot de
+                                        passe</label>
+                                </div>
                             </div>
                             <div class="form-group col-sm-12">
                                 <small id="passwordHelpBlock" class="form-text text-muted">

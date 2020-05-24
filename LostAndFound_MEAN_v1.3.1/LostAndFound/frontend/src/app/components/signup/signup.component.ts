@@ -12,7 +12,7 @@ import { Router } from "@angular/router";
 export class SignupComponent implements OnInit {
   errors: string[];
   isChecked: boolean;
-  dialCode = "+33"
+  dialCode = "+33";
   userForm: FormGroup;
   show: boolean;//see password
 
@@ -34,7 +34,7 @@ export class SignupComponent implements OnInit {
       name: ['', Validators.required],
       lastname: ['', Validators.required],
       email: ['', Validators.required],
-      number: [{ value: '', disabled: !this.isChecked }, Validators.required],
+      number: [{ value: '', disabled: !this.isChecked },[ Validators.required,Validators.pattern('([0-9 ])+')]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[-!@#$%^&/?]).{8,18})')]],
       confirmPassword: ['', Validators.required]
     });
@@ -72,7 +72,7 @@ export class SignupComponent implements OnInit {
     
     if (!this.userForm.invalid) {
       this.f.number.setValue(this.dialCode + " " + this.f.number.value)
-      this.userService.postUser(this.userForm.value)
+      /*this.userService.postUser(this.userForm.value)
         .subscribe(res => {
 
           console.log(res);
@@ -84,7 +84,7 @@ export class SignupComponent implements OnInit {
             //const {errors} = error;
             console.log(error.data)
           }
-        )
+        )*/
     }
   }
 
@@ -115,7 +115,7 @@ export class SignupComponent implements OnInit {
     let result = patt.test(event.key);
     const long = this.f.number.value.length;
     if (long == 2 || long == 5 || long == 8 || long == 11) {
-      this.f.number.setValue(this.f.number.value + " ")
+      this.f.number.setValue(this.f.number.value + " ");
     }
     if (long == 14) {
       return false;
