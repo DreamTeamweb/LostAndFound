@@ -10,7 +10,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-  {path:'', redirectTo:'object-lost',pathMatch:'full'},
+  {path:'', redirectTo:'signin',pathMatch:'full'},
   {path:'object-found',component:ObjectFoundComponent},
   {path:'signup',component:SignupComponent},
   {path:'signin',component:SigninComponent},
