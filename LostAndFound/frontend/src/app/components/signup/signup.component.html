@@ -1,0 +1,188 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<div class="container">
+    <div class="show-hide-message pt-3" *ngIf="!response.success && !userForm.invalid">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Ooops!</strong> {{response.message}}.
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 mt-3 mx-auto">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>Inscrivez-vous</h2>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="userForm" (ngSubmit)="addUser()" novalidate>
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <label for="inputName">Prénom *</label>
+                                <input type="text" class="form-control" id="inputName" formControlName="name"
+                                    placeholder="Prénom"
+                                    [ngClass]="{ 'is-invalid': userForm.controls['name'].invalid && (userForm.controls['name'].dirty || userForm.controls['name'].touched)}"
+                                    autofocus>
+                                <div class="form-control-feedback"
+                                    *ngIf="userForm.controls['name'].invalid && (userForm.controls['name'].dirty || userForm.controls['name'].touched)">
+                                    <div style="color:red; font-size:small"
+                                        *ngIf="userForm.controls['name'].errors.required">
+                                        Prénom requis
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="inputLasName">Nom *</label>
+                                <input type="text" class="form-control" id="inputLastName" formControlName="lastname"
+                                    placeholder="Nom"
+                                    [ngClass]="{ 'is-invalid': userForm.controls['lastname'].invalid && (userForm.controls['lastname'].dirty || userForm.controls['lastname'].touched)}">
+                                <div class="form-control-feedback"
+                                    *ngIf="userForm.controls['lastname'].invalid && (userForm.controls['lastname'].dirty || userForm.controls['lastname'].touched)">
+                                    <div style="color:red; font-size:small"
+                                        *ngIf="userForm.controls['lastname'].errors.required">
+                                        Nom requis
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-10">
+                                <label for="inputEmail">Mail de l'INSA *</label>
+                                <div class="input-group mb-1">
+                                    <input type="text" class="form-control" (keypress)="emailVal($event)"
+                                        placeholder="example.lost-found" id="inputEmail" formControlName="email"
+                                        aria-label="Recipient's username" aria-describedby="basic-addon2"
+                                        [ngClass]="{ 'is-invalid': userForm.controls['email'].invalid && (userForm.controls['email'].dirty || userForm.controls['email'].touched)}">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">@insa-lyon.fr</span>
+                                        <a tabindex="0" class="btn btn-success color-18469c" role="button"
+                                            data-toggle="popover" data-trigger="focus" title="Informations"
+                                            data-content="On utilise votre addresse de l'INSA afin de limiter le service au personnel de l'INSA et de préserver la sécurité"><span
+                                                class="material-icons align-middle">error_outline</span></a>
+
+                                    </div>
+                                </div>
+                                <div class="form-control-feedback"
+                                    *ngIf="userForm.controls['email'].invalid && (userForm.controls['email'].dirty || userForm.controls['email'].touched)">
+                                    <div style="color:red; font-size:small"
+                                        *ngIf="userForm.controls['email'].errors.required">
+                                        Mail requis
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group  col-sm-6">
+                                <!-- <label for="inputTelephone">Numéro de téléphone</label> -->
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="numberCheck"
+                                        name="numberCheck" (change)="checkValue(isChecked?true:false)">
+                                    <label class="custom-control-label" for="numberCheck">Ajouter un numéro de
+                                        téléphone</label>
+                                </div>
+
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <!-- <input id="phone" type="tel" class="form-control" name="number" #number="ngModel"
+                                    [(ngModel)]="userService.selectedUser.number" placeholder="+33 06 58 48 79 21"> -->
+                                <input type="text" formControlName="number" [ng2TelInputOptions]="{initialCountry: 'fr',onlyCountries: ['al', 'ad', 'at', 'by', 'be', 'ba', 'bg', 'hr', 'cz','ch', 'dk',
+                                'ee', 'fo', 'fi', 'fr', 'de', 'gi', 'gr', 'va', 'hu', 'is', 'ie', 'it', 'lv',
+                                'li', 'lt', 'lu', 'mk', 'mt', 'md', 'mc', 'me', 'nl', 'no', 'pl', 'pt', 'ro',
+                                'ru', 'sm', 'rs', 'sk', 'si', 'es', 'se', 'ch', 'ua', 'gb'],preferredCountries: ['fr','es','ch', 'de','it'],separateDialCode: true}
+                                 " ng2TelInput class="form-control" (keypress)="numericOnly($event)"
+                                    (countryChange)="onCountryChange($event)"
+                                    [ngClass]="{ 'is-invalid': userForm.controls['number'].invalid && isChecked && (userForm.controls['number'].dirty || userForm.controls['number'].touched)}">
+                                <div class="form-control-feedback"
+                                    *ngIf="userForm.controls['number'].invalid && isChecked &&(userForm.controls['number'].dirty || userForm.controls['number'].touched)">
+                                    <div style="color:red; font-size:small"
+                                        *ngIf="userForm.controls['number'].errors.required && isChecked">
+                                        Numéro de téléphone requis
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <label for="inputPassword">Mot de passe *</label>
+                                <input [type]="show ? 'text' : 'password'" class="form-control"
+                                    formControlName="password" placeholder="Mot de passe"
+                                    aria-describedby="passwordHelpBlock" (keypress)="passwordVal($event)"
+                                    [ngClass]="{ 'is-invalid': userForm.controls['password'].invalid && (userForm.controls['password'].dirty || userForm.controls['password'].touched)}">
+                                <div class="form-control-feedback"
+                                    *ngIf="userForm.controls['password'].invalid && (userForm.controls['password'].dirty || userForm.controls['password'].touched)">
+                                    <div style="color:red; font-size:small"
+                                        *ngIf="userForm.controls['password'].errors.pattern || userForm.controls['password'].errors.required">
+                                        Mot de passe invalide
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="inputConfirmPassword">Confirmez le mot de passe *</label>
+                                <input type="password" class="form-control" formControlName="confirmPassword"
+                                    [pattern]="f.password.value" placeholder="Confirmez le mot de passe"
+                                    [ngClass]="{ 'is-invalid': userForm.controls['confirmPassword'].invalid && (userForm.controls['confirmPassword'].dirty || userForm.controls['confirmPassword'].touched)}">
+                                <div class="form-control-feedback" style="color:red; font-size:small"
+                                    *ngIf="userForm.controls['confirmPassword'].invalid && (userForm.controls['confirmPassword'].dirty || userForm.controls['confirmPassword'].touched)">
+                                    <div *ngIf="userForm.controls['confirmPassword'].errors.required">
+                                        Confirmez le mot de passe
+                                    </div>
+                                    <div *ngIf="userForm.controls['confirmPassword'].errors.pattern">
+                                        Les mots de passe ne correspondent pas.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="showPsw" name="showPsw"
+                                        (change)="showPassword()">
+                                    <label class="custom-control-label" for="showPsw">Afficher le mot de
+                                        passe</label>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <small id="passwordHelpBlock" class="form-text text-muted">
+                                    Le mot de passe doit contenir au moins 8 caractères, dont une minuscule,
+                                    une majuscule, un chiffre et un caractère spécial ( -!@#$%^&/? )
+                                </small>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" [disabled]="userForm.pristine || userForm.invalid"
+                                class="btn btn-primary btn-block">
+                                Créer un compte
+                            </button>
+                        </div>
+                        <div class="form-group text-center">
+                            <hr>
+                            <p>Vous avez déjà un compte?
+                                <a [routerLink]="['/signin']">Connectez-vous</a></p>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div #myModal class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Annonce</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Veuillez vérifier votre mail <a href="https://login.insa-lyon.fr/zimbra/?" target="_blank">
+                        {{f.email.value}}@insa-lyon.fr
+                    </a>  pour activer votre compte. N'oubliez pas vérifier les spams.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="redirect()">D'accord</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
