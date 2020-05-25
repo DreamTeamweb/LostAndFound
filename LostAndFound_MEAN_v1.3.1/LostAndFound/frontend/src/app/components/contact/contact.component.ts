@@ -26,7 +26,8 @@ export class ContactComponent implements OnInit {
         },
         error => {
           this.main.logged = false;
-          console.log(error); this.router.navigate(['/signin'])
+          //console.log(error);
+           this.router.navigate(['/signin'])
         })
   }
 }

@@ -46,9 +46,12 @@ userCtrl.createUser = async (req, res) => {
         console.log("erreur sur le numéro de tel",number)
         errors.push({text: "le numéro n'est pas valide"});
     }*/
-    if (number.length > 25) {
-        errors.push({text: "Le numéro est trop long"});
+    if(number){
+        if (number.length > 25) {
+            errors.push({text: "Le numéro est trop long"});
+        }
     }
+
     
     if(!password){
         errors.push({text: "Le champ mot de passe est resté vide, complétez-le!"});
@@ -72,7 +75,7 @@ userCtrl.createUser = async (req, res) => {
         if (emailUser) {
             errors.push({ text: "Mail already in use" });
             //req.flash('error_msg','The email is already in use');
-            res.status(200).send({ success:false, message: 'email used' });
+            res.status(200).send({ success:false, message: 'Adresse mail déjà existante' });
         } else {
             const newUser = new User({ name, lastname, email, number, password,active:false });
             newUser.password = await newUser.encryptPassword(password);

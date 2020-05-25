@@ -35,7 +35,7 @@ export class SigninComponent implements OnInit {
         },
         error => {
           this.main.logged = false;
-          console.log(error); 
+          //console.log(error); 
         })
   }
 

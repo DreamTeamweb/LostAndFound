@@ -1,4 +1,5 @@
 declare var jQuery:any;
+import { ServerResponse } from './../../models/server-response';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -6,6 +7,7 @@ import { Router } from "@angular/router";
 import { ViewChild } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
+import { ASTWithSource } from '@angular/compiler';
 
 @Component({
   selector: 'app-signup',
@@ -19,11 +21,13 @@ export class SignupComponent implements OnInit {
   isChecked: boolean;
   dialCode = "+33";
   userForm: FormGroup;
+  response = new ServerResponse;
   show: boolean;//see password
 
   constructor(public userService: UserService, private router: Router,private main: AppComponent, private fb: FormBuilder) {
     this.isChecked = false;
     // initialize variable value
+    this.errors= [];
     this.show = false;
     this.createForm();
   }
@@ -43,7 +47,7 @@ export class SignupComponent implements OnInit {
         },
         error => {
           this.main.logged = false;
-          console.log(error); 
+          //console.log(error); 
         })
   }
 
@@ -90,18 +94,24 @@ export class SignupComponent implements OnInit {
     
     if (!this.userForm.invalid) {
       this.f.number.setValue(this.dialCode + " " + this.f.number.value)
-      jQuery(this.myModal.nativeElement).modal('show'); 
+      
       this.userService.postUser(this.userForm.value)
         .subscribe(res => {
-
+          this.response = res as ServerResponse;
           console.log(res);
-
+          if(this.response.success){
+            jQuery(this.myModal.nativeElement).modal('show'); 
+          }else{
+            this.errors.push(this.response.message);
+            this.f.number.setValue(this.f.number.value.substr(this.f.number.value.indexOf(' ')+1));
+          }
+          
           //this.router.navigate(['/signin']);
         },
           error => {
-            console.log(error);
+            //console.log(error);
             //const {errors} = error;
-            console.log(error.data)
+            //console.log(error.data)
           }
         )
     }
@@ -117,7 +127,7 @@ export class SignupComponent implements OnInit {
       this.isChecked = false;
       number.disable();
     }
-    console.log(this.isChecked);
+    //console.log(this.isChecked);
   }
 
   getNumber(event) {
